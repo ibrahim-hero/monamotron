@@ -2,12 +2,14 @@
 
 Contributions that improve teaching clarity, visual craft, accessibility, deterministic rendering, media safety, or portability are welcome.
 
+Start with the [architecture guide](docs/ARCHITECTURE.md) for the runtime layers, example pipeline, and [where to make a change](docs/ARCHITECTURE.md#where-to-make-a-change).
+
 ## Setup
 
 ```sh
 git clone https://github.com/ibrahim-hero/monamotron.git
 cd monamotron
-npm install
+npm ci
 npm test
 npm run build
 npm run check:browser

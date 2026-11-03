@@ -21,7 +21,7 @@ if (args.help) {
   const files = [
     'README.md', 'CONTRIBUTING.md', 'docs/GITHUB_PUBLISHING.md',
     'docs/GITHUB_LAUNCH_PLAYBOOK.md', 'docs/VIDEO_AND_MEDIA.md',
-    'docs/LAUNCH_POSTS.md', '.github/ISSUE_TEMPLATE/config.yml',
+    'docs/LAUNCH_POSTS.md', 'docs/INSTALLATION.md', 'docs/video.html', '.github/ISSUE_TEMPLATE/config.yml',
   ];
   const changes = [];
   for (const file of files) {

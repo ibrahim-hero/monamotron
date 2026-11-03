@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Watch Monamotron draw a neural-network lesson, one idea at a time. A real 73-second code-rendered video, with chapters, a transcript, and MP4 and WebM downloads.">
+  <meta name="theme-color" content="#173e35">
+  <title>Watch the demo — Monamotron</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23173e35'/%3E%3Cpath d='M8 28V12l12 13 12-13v16' fill='none' stroke='%23ecd17e' stroke-width='3'/%3E%3C/svg%3E">
+  <style>
+    :root { color-scheme: light; --ink: #173e35; --muted: #50655d; --paper: #f7f5ed; --line: #d4dcd2; --gold: #ecd17e; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: inherit; text-underline-offset: .22em; }
+    a:hover { text-decoration-thickness: 2px; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid #26705a; outline-offset: 5px; }
+    button { font: inherit; }
+    [hidden] { display: none !important; }
+    .wrap { width: min(1240px, calc(100% - 64px)); margin-inline: auto; }
+    .skip { position: absolute; left: 24px; top: -80px; padding: 10px 18px; background: white; z-index: 2; }
+    .skip:focus { top: 16px; }
+    header { border-bottom: 1px solid var(--line); }
+    .header-inner { min-height: 90px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 750; letter-spacing: -.6px; text-decoration: none; }
+    .brand svg { width: 40px; height: 40px; }
+    .header-links { display: flex; align-items: center; gap: 24px; font-size: 14px; font-weight: 600; }
+    .header-links a { text-decoration: none; }
+    .header-links a:hover { text-decoration: underline; }
+    .hero { padding-block: 48px 36px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; }
+    .eyebrow { margin: 0 0 16px; font-size: 11px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 10px; background: #548773; }
+    h1 { margin: 0; font: 500 clamp(44px, 5vw, 68px)/1.04 Georgia, "Times New Roman", serif; letter-spacing: -.045em; }
+    h1 em { color: #4f7753; font-weight: 400; }
+    .intro { max-width: 460px; margin: 0 0 10px; color: var(--muted); font-size: 18px; }
+    .intro strong { color: var(--ink); font-weight: 650; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .meta span { border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; font-size: 12px; color: var(--muted); }
+    .watch-layout { display: grid; grid-template-columns: minmax(0, 1fr) 294px; align-items: start; gap: 24px; }
+    .screen { overflow: hidden; border: 8px solid var(--ink); border-radius: 18px; background: var(--ink); box-shadow: 0 16px 40px #173e3514; }
+    .frame-heading { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 13px; color: #c7d7c9; font-size: 10px; letter-spacing: .14em; }
+    .record-dot { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--gold); }
+    video { display: block; width: 100%; height: auto; aspect-ratio: 10 / 7; background: #17342f; border-radius: 9px; }
+    .player-note { margin: 12px 2px 0; color: var(--muted); font-size: 12px; }
+    .chapters { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: #ffffff85; }
+    .label { margin: 0 0 10px; color: #597063; font-size: 10px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 0 0 16px; font-size: 23px; line-height: 1.25; letter-spacing: -.5px; }
+    .chapter-list { display: grid; gap: 4px; margin-top: 20px; }
+    .chapter-list button { width: 100%; display: flex; align-items: center; gap: 12px; padding: 9px 10px; border: 1px solid transparent; border-radius: 8px; color: var(--ink); background: transparent; text-align: left; cursor: pointer; font-size: 13px; }
+    .chapter-list time { color: #597063; font: 11px ui-monospace, Consolas, monospace; }
+    .chapter-list button:hover { border-color: var(--line); }
+    .chapter-list button[aria-current="step"] { background: #e4ecdf; border-color: #d3dfcf; font-weight: 650; }
+    .chapter-note { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-block: 30px 38px; }
+    .button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 12px 18px; border: 1px solid #b9c8bc; border-radius: 9px; font-size: 13px; font-weight: 650; text-decoration: none; }
+    .button:hover { background: #e8ecdf; }
+    .button.primary { border-color: var(--ink); background: var(--ink); color: #fffbed; }
+    .button.primary:hover { background: #255749; }
+    .source-link { margin-left: auto; font-size: 13px; }
+    .proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; padding-block: 30px; border-block: 1px solid var(--line); }
+    .proof article { padding-right: 12px; }
+    .proof .number { display: block; margin-bottom: 12px; color: #688170; font: 12px ui-monospace, Consolas, monospace; }
+    h3 { margin: 0 0 8px; font-size: 17px; }
+    .proof p { margin: 0; color: var(--muted); font-size: 14px; }
+    details { margin-block: 30px 44px; padding: 20px 24px; border: 1px solid var(--line); border-radius: 12px; background: #ffffff65; }
+    summary { font-size: 15px; font-weight: 650; cursor: pointer; }
+    .transcript { max-width: 900px; padding-top: 12px; color: var(--muted); font-size: 14px; }
+    .transcript li { margin-block: 12px; padding-left: 5px; }
+    .transcript strong { color: var(--ink); }
+    footer { border-top: 1px solid var(--line); padding-block: 24px 32px; color: var(--muted); font-size: 12px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
+    @media (max-width: 980px) {
+      .watch-layout { grid-template-columns: minmax(0, 1fr); }
+      .chapter-list { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .chapters h2 { margin-bottom: 0; }
+      .hero { gap: 26px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 32px); }
+      .header-inner { min-height: 76px; }
+      .brand { font-size: 19px; gap: 8px; }
+      .brand svg { width: 32px; height: 32px; }
+      .header-links { gap: 14px; font-size: 12px; }
+      .header-links .interactive-link { display: none; }
+      .hero { grid-template-columns: 1fr; padding-block: 32px 26px; gap: 22px; }
+      .intro { font-size: 16px; margin: 0; }
+      .meta { margin-top: 16px; }
+      .screen { border-width: 5px; border-radius: 12px; }
+      .frame-heading { padding: 8px; font-size: 8px; }
+      .chapters { padding: 18px; }
+      .chapter-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+      .chapter-list button { gap: 8px; padding-inline: 6px; font-size: 12px; }
+      .actions { gap: 10px; margin-block: 24px 30px; }
+      .button { flex: 1; padding-inline: 12px; white-space: nowrap; }
+      .button.primary { flex-basis: 100%; }
+      .source-link { flex-basis: 100%; margin: 4px 0 0; text-align: center; }
+      .proof { grid-template-columns: 1fr; gap: 24px; }
+      .proof .number { margin-bottom: 6px; }
+      details { padding: 16px; }
+      .transcript ol { padding-left: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#watch">Skip to the video</a>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="https://github.com/ibrahim-hero/monamotron" aria-label="Monamotron on GitHub">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="#173e35"/>
+          <path d="M9 28V12L20 24L31 12V28" stroke="#ecd17e" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Monamotron
+      </a>
+      <nav class="header-links" aria-label="Main navigation">
+        <a class="interactive-link" href="index.html">Interactive lesson ↗</a>
+        <a href="https://github.com/ibrahim-hero/monamotron">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">A real code-rendered demo</p>
+        <h1 id="page-title">From a prompt.<br>To an <em>aha.</em></h1>
+      </div>
+      <div>
+        <p class="intro">Watch a neural network learn, <strong>one illustrated step at a time.</strong> Monamotron turns explanations into connected visual stories you can play, explore, and share.</p>
+        <div class="meta" aria-label="Video details"><span>~73 seconds</span><span>On-screen captions</span><span>Silent video</span></div>
+      </div>
+    </section>
+
+    <section id="watch" class="watch-layout" aria-label="Watch the demo">
+      <div>
+        <div class="screen">
+          <div class="frame-heading"><span><span class="record-dot" aria-hidden="true"></span>MONAMOTRON / DEMO 01</span><span>1600 × 1120</span></div>
+          <video id="demo-video" controls playsinline preload="metadata" poster="media/neural-network-preview.png" width="1600" height="1120" aria-label="How a neural network learns — Monamotron demo" aria-describedby="video-description">
+            <source src="media/neural-network-demo.mp4" type="video/mp4">
+            <source src="media/neural-network-demo.webm" type="video/webm">
+            Your browser cannot play this video. <a href="media/neural-network-demo.mp4">Download the MP4</a> or <a href="index.html">open the interactive lesson</a>.
+          </video>
+        </div>
+        <p id="video-description" class="player-note">Full-speed lesson · captions are included in the picture · use fullscreen to inspect the details.</p>
+        <p id="playback-status" role="status" class="player-note"></p>
+      </div>
+      <aside class="chapters" aria-labelledby="lesson-title">
+        <p class="label">Inside this lesson</p>
+        <h2 id="lesson-title">How a neural<br>network learns.</h2>
+        <nav id="chapter-nav" class="chapter-list" aria-label="Video chapters" hidden>
+          <button type="button" data-start="0" aria-current="step"><time datetime="PT0S">00:00</time><span>The learning loop</span></button>
+          <button type="button" data-start="6"><time datetime="PT6S">00:06</time><span>Read an example</span></button>
+          <button type="button" data-start="13"><time datetime="PT13S">00:13</time><span>Make a prediction</span></button>
+          <button type="button" data-start="25"><time datetime="PT25S">00:25</time><span>Measure the error</span></button>
+          <button type="button" data-start="34"><time datetime="PT34S">00:34</time><span>Find the gradients</span></button>
+          <button type="button" data-start="45"><time datetime="PT45S">00:45</time><span>Take a small step</span></button>
+          <button type="button" data-start="55"><time datetime="PT55S">00:55</time><span>Practice + check</span></button>
+          <button type="button" data-start="64"><time datetime="PT64S">01:04</time><span>Keep the big idea</span></button>
+        </nav>
+        <p class="chapter-note">35 inputs. 6 hidden units. 1 output.<br>The predictions and learning curves come from a reproducible toy model.</p>
+      </aside>
+    </section>
+
+    <div class="actions" aria-label="Explore and download">
+      <a class="button primary" href="index.html">Try the interactive lesson →</a>
+      <a class="button" href="media/neural-network-demo.mp4" download>Download MP4 ↓</a>
+      <a class="button" href="media/neural-network-demo.webm" download>Download WebM ↓</a>
+      <a class="source-link" href="https://github.com/ibrahim-hero/monamotron/tree/main/examples/neural-network">Explore the lesson source ↗</a>
+    </div>
+
+    <section class="proof" aria-label="How this demo was made">
+      <article><span class="number">01 / DRAW</span><h3>Art with a purpose.</h3><p>Original SVG illustrations, handwritten labels, and arrows that explain how each idea connects to the next.</p></article>
+      <article><span class="number">02 / EXPLAIN</span><h3>Numbers you can inspect.</h3><p>A 223-parameter toy network supplies the predictions, gradients, and learning curves. The calculations have automated tests.</p></article>
+      <article><span class="number">03 / SHARE</span><h3>A lesson you can keep.</h3><p>Interactive HTML, editable source, images, and video. Load the skill in your AI agent to make a lesson about your own topic.</p></article>
+    </section>
+
+    <details>
+      <summary>Read the lesson — text alternative</summary>
+      <div class="transcript">
+        <p>A neural network learns by adjusting the numbers inside it. This example classifies small, noisy pictures of sevens and ones.</p>
+        <ol>
+          <li><strong>Read an example.</strong> A 5-by-7 image provides 35 pixel values. A known label says whether it is a seven or a one.</li>
+          <li><strong>Make a prediction.</strong> Six hidden units combine weighted inputs and biases, then apply sigmoid. An output unit produces a score for the class seven. There are 223 learnable weights and biases.</li>
+          <li><strong>Measure the error.</strong> Binary cross-entropy compares that score with the correct label. For an example labeled seven, a larger score lowers the loss.</li>
+          <li><strong>Find the gradients.</strong> Backpropagation applies the chain rule backward through the computation. It finds how sensitive the loss is to each parameter; the weights have not changed yet.</li>
+          <li><strong>Take a small step.</strong> Gradient descent subtracts the learning rate times the gradient from each parameter. The updated network makes a new prediction.</li>
+          <li><strong>Practice and check.</strong> Repeat across training examples, then evaluate separate held-out data. The plotted curves are measured on this fixed toy dataset; they are not a claim about real handwriting recognition.</li>
+        </ol>
+        <p><strong>The big idea:</strong> predictions forward, gradients backward, small updates, repeat. Test whether the learning carries over to new examples.</p>
+      </div>
+    </details>
+  </main>
+  <footer><div class="wrap"><span>Your AI explains ideas by drawing them.</span><span><a href="https://github.com/ibrahim-hero/monamotron#quick-start">Install Monamotron</a> · <a href="https://github.com/ibrahim-hero/monamotron/blob/main/LICENSE">Open source / MIT</a></span></div></footer>
+  <script>
+    (() => {
+      const video = document.querySelector('#demo-video');
+      const navigation = document.querySelector('#chapter-nav');
+      const buttons = [...navigation.querySelectorAll('button')];
+      const status = document.querySelector('#playback-status');
+
+      function highlightChapter() {
+        buttons.forEach((button, index) => {
+          const start = Number(button.dataset.start);
+          const end = Number(buttons[index + 1]?.dataset.start ?? Infinity);
+          if (video.currentTime >= start && video.currentTime < end) button.setAttribute('aria-current', 'step');
+          else button.removeAttribute('aria-current');
+        });
+      }
+
+      buttons.forEach((button) => button.addEventListener('click', async () => {
+        status.textContent = '';
+        video.currentTime = Number(button.dataset.start);
+        highlightChapter();
+        try { await video.play(); }
+        catch (error) {
+          if (error.name !== 'AbortError') status.textContent = 'Use the player’s Play button, or download the video below.';
+        }
+      }));
+      video.addEventListener('playing', () => { status.textContent = ''; });
+      video.addEventListener('timeupdate', highlightChapter);
+      video.addEventListener('error', () => { status.textContent = 'The video could not load. Try the WebM download or open the interactive lesson.'; });
+      navigation.hidden = false;
+    })();
+  </script>
+</body>
+</html>

@@ -21,6 +21,8 @@ const required = [
   'docs/media/social-preview.png', '.github/workflows/ci.yml',
   'docs/media/social-preview.svg', 'docs/GITHUB_LAUNCH_PLAYBOOK.md', 'docs/LAUNCH_POSTS.md',
   'scripts/configure-github.mjs', 'scripts/create-social-preview.mjs', 'github.config.json',
+  'docs/ARCHITECTURE.md', 'docs/video.html', 'scripts/create-demo-media.mjs',
+  'docs/media/neural-network-demo.mp4', 'docs/media/neural-network-demo.gif',
 ];
 
 async function exists(path) {
@@ -60,6 +62,23 @@ const video = await readFile(resolve(root, 'docs/media/neural-network-demo.webm'
 if (video.subarray(0, 4).toString('hex') !== '1a45dfa3') failures.push('Demo video is not an EBML/WebM file.');
 if (video.length >= 100 * 1024 * 1024) failures.push('Demo video exceeds GitHub\'s normal 100 MB file limit.');
 
+const mp4 = await readFile(resolve(root, 'docs/media/neural-network-demo.mp4'));
+if (mp4.subarray(4, 8).toString() !== 'ftyp') failures.push('Demo MP4 is missing its file-type signature.');
+const gif = await readFile(resolve(root, 'docs/media/neural-network-demo.gif'));
+if (!/^GIF8[79]a$/u.test(gif.subarray(0, 6).toString())) failures.push('README preview is not a GIF.');
+else if (gif.readUInt16LE(6) !== 960 || gif.readUInt16LE(8) !== 672) failures.push('README preview must be 960x672.');
+for (const [name, bytes] of [['MP4', mp4], ['GIF', gif]]) {
+  if (bytes.length >= 100 * 1024 * 1024) failures.push(`${name} demo exceeds GitHub's normal 100 MB file limit.`);
+}
+
+const watchPage = await readFile(resolve(root, 'docs/video.html'), 'utf8');
+for (const match of watchPage.matchAll(/\b(?:href|src|poster)="([^"]+)"/gu)) {
+  const target = match[1];
+  if (/^(?:https?:|data:|#)/iu.test(target)) continue;
+  const path = decodeURIComponent(target.split('#')[0].split('?')[0]);
+  if (path && !await exists(resolve(root, 'docs', path))) failures.push(`Broken watch-page asset/link: ${target}`);
+}
+
 function pngSize(bytes) {
   if (bytes.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') throw new Error('Invalid PNG signature.');
   return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
@@ -98,5 +117,5 @@ if (failures.length) {
   process.exitCode = 1;
 } else {
   const size = (await stat(resolve(root, 'docs/media/neural-network-demo.webm'))).size;
-  console.log(`Monamotron repository verified: ${required.length} required paths, ${fonts.length} fonts, local Markdown links, 1280x640 social preview, and ${(size / 1048576).toFixed(2)} MiB WebM.`);
+  console.log(`Monamotron repository verified: ${required.length} required paths, ${fonts.length} fonts, local Markdown/watch-page links, 1280x640 social preview, ${(size / 1048576).toFixed(2)} MiB WebM, MP4, and 960x672 GIF.`);
 }

@@ -56,15 +56,19 @@ monamotron/
 ├── docs/
 │   ├── .nojekyll
 │   ├── index.html                       # GitHub Pages interactive demo
+│   ├── video.html                       # Video player, chapters, and downloads
 │   ├── demo/solar.html                  # Second standalone demo
 │   ├── media/
 │   │   ├── neural-network-demo.webm     # Put the public demo video here
+│   │   ├── neural-network-demo.mp4      # Full-speed shareable video
+│   │   ├── neural-network-demo.gif      # Animated README preview
 │   │   ├── neural-network-preview.png   # README preview image
 │   │   ├── neural-network-mobile.png
 │   │   ├── neuron-detail.png
 │   │   ├── learning-curves.png
 │   │   ├── social-preview.png           # Upload in GitHub repository settings
 │   │   └── social-preview.svg           # Editable branded artwork
+│   ├── ARCHITECTURE.md
 │   ├── GITHUB_LAUNCH_PLAYBOOK.md
 │   ├── LAUNCH_POSTS.md
 │   ├── GITHUB_PUBLISHING.md
@@ -76,6 +80,7 @@ monamotron/
 ├── scripts/
 │   ├── configure-github.mjs
 │   ├── create-social-preview.mjs
+│   ├── create-demo-media.mjs
 │   ├── create-release-zip.mjs
 │   ├── sync-demo.mjs
 │   ├── sync-public-media.mjs
@@ -204,10 +209,10 @@ Why this location:
 
 The included video is about 3 MB, well below GitHub's 100 MB per-file limit. Do not use Git LFS for this file. If a future export exceeds 100 MB, host it as a GitHub Release asset, compress it, or use a video platform instead of committing it directly.
 
-The README uses the preview image as the clickable video poster:
+The README uses an animated preview linked to the full video player:
 
 ```md
-[![Monamotron demo](docs/media/neural-network-preview.png)](docs/media/neural-network-demo.webm)
+[![Monamotron demo](docs/media/neural-network-demo.gif)](https://ibrahim-hero.github.io/monamotron/video.html)
 ```
 
 See [Video And Media](VIDEO_AND_MEDIA.md) for release assets, YouTube, MP4, and replacement instructions.
@@ -224,6 +229,7 @@ See [Video And Media](VIDEO_AND_MEDIA.md) for release assets, YouTube, MP4, and 
 
 ```text
 monamotron-v1.0.0.zip
+docs/media/neural-network-demo.mp4
 docs/media/neural-network-demo.webm
 docs/media/neural-network-preview.png
 ```
@@ -242,7 +248,7 @@ docs/media/neural-network-preview.png
 ## Final Public Checklist
 
 - [ ] Root README preview renders.
-- [ ] Video link opens or downloads the real WebM.
+- [ ] Watch page plays the full video and its MP4/WebM downloads work.
 - [ ] GitHub Pages loads the interactive board.
 - [ ] About description and topics are set.
 - [ ] Social preview is uploaded.

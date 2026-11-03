@@ -16,6 +16,7 @@
     "check:browser:neural": "node examples/neural-network/check-browser.mjs",
     "export:neural": "node skill/monamotron/scripts/export.mjs --input examples/neural-network/index.html --out examples/neural-network/exports --png --svg --video --width 1600 && node scripts/sync-public-media.mjs",
     "brand": "node scripts/create-social-preview.mjs",
+    "demo:media": "node scripts/create-demo-media.mjs",
     "github:configure": "node scripts/configure-github.mjs",
     "verify": "node scripts/verify-repository.mjs",
     "package": "node scripts/create-release-zip.mjs"

@@ -13,8 +13,11 @@ Extract `monamotron-v1.0.0.zip`. The inner `monamotron` folder is the repository
 | `skill/monamotron/` | Complete installable skill, runtime, fonts, references, and starter |
 | `commands/opencode/monamotron.md` | Optional `/monamotron` slash command |
 | `docs/index.html` | Interactive neural-network demo for GitHub Pages |
+| `docs/video.html` | Full video player with chapter shortcuts, text alternative, and downloads |
 | `docs/demo/solar.html` | A second live example |
 | `docs/media/neural-network-demo.webm` | Full generated video: about 73 seconds, 1600 × 1120 |
+| `docs/media/neural-network-demo.mp4` | Full-speed H.264 copy for playback and sharing |
+| `docs/media/neural-network-demo.gif` | Animated README preview at 5× speed |
 | `docs/media/neural-network-preview.png` | Full-board README poster |
 | `docs/media/social-preview.png` | Upload to GitHub Social preview; 1280 × 640 |
 | `docs/media/social-preview.svg` | Editable source for the social-preview artwork |
@@ -26,6 +29,7 @@ Extract `monamotron-v1.0.0.zip`. The inner `monamotron` folder is the repository
 | `CONTRIBUTING.md`, `SECURITY.md`, `SUPPORT.md` | Contributor and support information |
 | `RELEASE_NOTES_v1.0.0.md` | Paste into the first GitHub release |
 | `docs/LAUNCH_POSTS.md` | Copy-ready announcement and community posts |
+| `docs/ARCHITECTURE.md` | Architecture diagrams, runtime layers, source ownership, and build/export commands |
 
 The ZIP is also a **release download**. Upload the extracted source contents to the repository; attach the ZIP to Releases.
 
@@ -101,6 +105,8 @@ docs/GITHUB_PUBLISHING.md
 docs/GITHUB_LAUNCH_PLAYBOOK.md
 docs/VIDEO_AND_MEDIA.md
 docs/LAUNCH_POSTS.md
+docs/INSTALLATION.md
+docs/video.html
 .github/ISSUE_TEMPLATE/config.yml
 ```
 
@@ -254,16 +260,16 @@ The live video URL after Pages is enabled is:
 https://ibrahim-hero.github.io/monamotron/media/neural-network-demo.webm
 ```
 
-The full WebM is ready. For platforms requiring MP4, use FFmpeg to convert it:
+The full WebM and MP4 are ready. The watch page is at `https://ibrahim-hero.github.io/monamotron/video.html`. Run `npm run demo:media` to regenerate the MP4 and animated GIF from the published WebM using FFmpeg. To convert just the MP4 manually:
 
 ```powershell
-ffmpeg -i docs/media/neural-network-demo.webm -c:v libx264 -pix_fmt yuv420p -movflags +faststart docs/media/neural-network-demo.mp4
+ffmpeg -i docs/media/neural-network-demo.webm -vf fps=24 -c:v libx264 -pix_fmt yuv420p -movflags +faststart docs/media/neural-network-demo.mp4
 ```
 
 For a short launch clip showing the network being drawn:
 
 ```powershell
-ffmpeg -ss 00:00:12 -t 00:00:18 -i docs/media/neural-network-demo.webm -vf "scale=1280:-2" -c:v libx264 -pix_fmt yuv420p -an -movflags +faststart docs/media/monamotron-teaser.mp4
+ffmpeg -ss 00:00:12 -t 00:00:18 -i docs/media/neural-network-demo.webm -vf "fps=24,scale=1280:-2" -c:v libx264 -pix_fmt yuv420p -an -movflags +faststart docs/media/monamotron-teaser.mp4
 ```
 
 These optional commands create new MP4 files; FFmpeg is required. The shipped video contains captions, with no synthesized voiceover.
@@ -275,7 +281,7 @@ These optional commands create new MP4 files; FFmpeg is required. The shipped vi
 3. Create tag `v1.0.0`, targeting `main`.
 4. Set the release title from section 2.
 5. Paste the contents of `RELEASE_NOTES_v1.0.0.md` into the description.
-6. Attach the ZIP, `neural-network-demo.webm`, and `neural-network-preview.png`.
+6. Attach the ZIP, `neural-network-demo.mp4`, `neural-network-demo.webm`, and `neural-network-preview.png`.
 7. Publish as the latest release.
 
 GitHub's automatic source-code ZIP is useful too; the named release asset makes the installable bundle easier for new users to recognize.

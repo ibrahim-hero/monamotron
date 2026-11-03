@@ -2,6 +2,8 @@
 
 This repository separates the portable skill, editable demonstrations, public GitHub media, and development tooling so users know exactly what to install and contributors know what to edit.
 
+For the runtime layers and end-to-end data flow, start with [Architecture](ARCHITECTURE.md).
+
 ```text
 monamotron/
 ├── skill/monamotron/
@@ -44,14 +46,21 @@ monamotron/
 │   └── monamotron.md         # Optional `/monamotron` command
 ├── docs/
 │   ├── index.html                  # GitHub Pages live demo
+│   ├── video.html                  # Full video player, chapters, and downloads
 │   ├── demo/solar.html             # Secondary live demo
 │   ├── media/                      # README, Pages, and release media
+│   │   ├── neural-network-demo.webm # Original code-rendered video
+│   │   ├── neural-network-demo.mp4  # Full-speed shareable video
+│   │   └── neural-network-demo.gif  # Accelerated README preview
+│   ├── ARCHITECTURE.md             # Layers, data flow, and source ownership
 │   ├── GITHUB_LAUNCH_PLAYBOOK.md    # Upload instructions, positioning, and growth plan
 │   ├── LAUNCH_POSTS.md              # Copy-ready announcements
 │   └── *.md                        # Publishing and installation guides
 ├── scripts/
 │   ├── configure-github.mjs         # Fill account-specific URLs locally
 │   ├── create-social-preview.mjs    # Branded social artwork, SVG + PNG
+│   ├── create-demo-media.mjs        # MP4 + GIF generation from the original WebM
+│   ├── sync-public-media.mjs        # Refreshes public images/video from checked exports
 │   ├── sync-demo.mjs               # Syncs rebuilt example into `/docs`
 │   ├── verify-repository.mjs       # Package/link/media verification
 │   └── create-release-zip.mjs      # Clean distributable ZIP
@@ -91,7 +100,7 @@ The following are generated but intentionally tracked because they make the repo
 
 - `docs/index.html`
 - `docs/demo/solar.html`
-- `docs/media/*`
+- `docs/media/` image/video assets (the README there is handwritten documentation)
 - `examples/neural-network/index.html`
 - `examples/neural-network/story.json`
 - `examples/neural-network/experiment-results.json`
