@@ -1,0 +1,14 @@
+{
+  "name": "monamotron-neural-networks-lesson",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An illustrated chalkboard lesson backed by a real, reproducible toy neural network.",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node --test tests/learning.test.mjs",
+    "check:browser": "node check-browser.mjs",
+    "export": "node ../../skill/monamotron/scripts/export.mjs --input index.html --out exports --png --svg --video --width 1600"
+  },
+  "engines": { "node": ">=20" }
+}

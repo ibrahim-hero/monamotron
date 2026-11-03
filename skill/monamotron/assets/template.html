@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MONAMOTRON_PAGE_TITLE</title>
+  <style id="font-styles">/* MONAMOTRON_FONT_CSS */</style>
+  <style>/* MONAMOTRON_PLAYER_CSS */</style>
+</head>
+<body>
+  <a class="skip-link" href="#lesson-transcript">Skip to the written explanation</a>
+  <header class="app-header">
+    <div class="brand" aria-label="Monamotron visual stories">
+      <svg viewBox="0 0 40 40" width="35" height="35" aria-hidden="true"><path d="M19 4 Q21 16 35 18 Q23 21 20 36 Q17 23 5 20 Q17 17 19 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M29 5 L32 9 M34 3 L35 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span><strong>monamotron</strong><span class="brand-divider">/</span>visual stories</span>
+    </div>
+    <span class="header-note"><span class="status-dot"></span> A little clarity, beautifully drawn.</span>
+  </header>
+  <main>
+    <section class="studio" aria-label="Visual explanation player">
+      <div class="studio-toolbar">
+        <div class="board-label"><span class="tiny-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>THE EXPLAINER CANVAS</span></div>
+        <div class="design-controls">
+          <label class="select-label" for="style-select">Style <select id="style-select" aria-label="Visual style"></select></label>
+          <label class="select-label" for="font-select">Type <select id="font-select" aria-label="Title and annotation font"></select></label>
+          <details class="export-menu" id="export-menu">
+            <summary>Export <span aria-hidden="true">↗</span></summary>
+            <div class="export-options">
+              <button type="button" data-export="svg">Editable SVG <span>vector image</span></button>
+              <button type="button" data-export="png">High-res PNG <span>2160px wide</span></button>
+              <button type="button" data-export="video">Animated WebM <span>made with code</span></button>
+              <button type="button" data-export="scene">Scene JSON <span>editable source</span></button>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="board-mount" id="board-mount"><div class="loading-state" id="loading-state">Loading the drawing desk…</div></div>
+      <div class="playback-panel">
+        <div class="playback-main">
+          <button class="play-button" id="play-button" type="button"><span id="play-icon" aria-hidden="true">▶</span><span id="play-label">Watch it unfold</span></button>
+          <button class="icon-button" id="replay-button" type="button" aria-label="Replay from the beginning">↺</button>
+          <div class="timeline-wrap"><label class="sr-only" for="timeline">Seek through the explanation</label><input id="timeline" type="range" min="0" max="38000" value="38000" step="10"><span class="time-display" id="time-display">0:00 / 0:38</span></div>
+          <label class="speed-label" for="speed-select"><span class="sr-only">Playback speed</span><select id="speed-select"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+          <button class="overview-button" id="overview-button" type="button">Full board</button>
+        </div>
+        <nav class="chapter-nav" id="chapter-nav" aria-label="Explanation chapters"></nav>
+        <div class="caption-line"><span class="caption-marker" aria-hidden="true">✦</span><p id="caption-text"></p></div>
+      </div>
+    </section>
+    <div class="below-board"><span>DRAWN IN CODE. TOLD ONE IDEA AT A TIME.</span><span>Try a different style, then press play.</span></div>
+    <details class="transcript" id="lesson-transcript"><summary><span>Keep the whole explanation</span><span class="summary-hint">Transcript & sources <span aria-hidden="true">+</span></span></summary><div id="transcript-content"></div></details>
+    <details class="font-notices"><summary>Font credits & open-source notices</summary><pre id="notices-content"></pre></details>
+  </main>
+  <dialog id="media-dialog" class="media-dialog" aria-labelledby="media-title">
+    <div class="dialog-header"><h2 id="media-title"></h2><button type="button" class="icon-button" id="close-dialog" aria-label="Close media">×</button></div>
+    <div id="media-content"></div><p id="media-caption"></p><button type="button" class="play-button dialog-export" id="dialog-export">Export this story as WebM ↗</button>
+  </dialog>
+  <div id="notice" class="notice" role="status" aria-live="polite"></div>
+  <script id="story-data" type="application/json">MONAMOTRON_SCENE_JSON</script>
+  <script id="font-notice-data" type="text/plain">MONAMOTRON_FONT_NOTICES</script>
+  <script>/* MONAMOTRON_CORE_JS */</script>
+  <script>/* MONAMOTRON_VIDEO_JS */</script>
+  <script>/* MONAMOTRON_PLAYER_JS */</script>
+</body>
+</html>

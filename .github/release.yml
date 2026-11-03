@@ -1,0 +1,10 @@
+changelog:
+  categories:
+    - title: New visual capabilities
+      labels: [enhancement, feature]
+    - title: Fixes
+      labels: [bug, fix]
+    - title: Documentation and examples
+      labels: [documentation, example]
+    - title: Other changes
+      labels: ["*"]

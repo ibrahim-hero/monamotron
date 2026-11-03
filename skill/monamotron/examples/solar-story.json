@@ -1,0 +1,49 @@
+{
+  "$schema": "../references/scene.schema.json",
+  "version": 1,
+  "title": "From sunshine\nto switched-on.",
+  "eyebrow": "EVERYDAY SCIENCE / AN ILLUSTRATED FIELD NOTE",
+  "subtitle": "How a solar panel turns a little sunlight into useful electricity.",
+  "headerNote": "A little physics.\nA lot of possibility.",
+  "style": "studio-sketch",
+  "font": "excalifont",
+  "width": 1440,
+  "height": 960,
+  "seed": 28,
+  "duration": 38000,
+  "chapters": [
+    { "id": "light", "title": "Meet the sunlight", "start": 0, "end": 9700, "explanation": "Sunlight carries energy as photons. A photovoltaic cell can absorb some of that energy; it does not need the panel to become hot." },
+    { "id": "capture", "title": "Capture the energy", "start": 9700, "end": 16100, "explanation": "Absorbed light energy creates mobile electrical charges in the photovoltaic material. An internal electrical field separates charges, and a connected circuit carries direct current (DC)." },
+    { "id": "convert", "title": "Make it home-ready", "start": 16100, "end": 23300, "explanation": "An inverter changes the panel's DC electricity into alternating current (AC), the form supplied to a typical household electrical system. A system may use a shared inverter or panel-level microinverters." },
+    { "id": "use", "title": "Put it to work", "start": 23300, "end": 38000, "explanation": "AC electricity can supply household loads. This simplified drawing shows the direct daytime path. A real installation also includes wiring, protection and metering; batteries can store energy and a grid connection can supply shortfalls or receive surplus where supported." }
+  ],
+  "nodes": [
+    { "id": "sun", "kind": "illustration", "icon": "sun", "x": 80, "y": 330, "width": 262, "height": 335, "title": "Sunlight", "body": "Photons bring energy\nfrom the Sun.", "kicker": "01 / THE STARTING POINT", "fill": "surface", "at": 4350, "drawDuration": 1600, "titleAt": 6110, "bodyAt": 6650, "cps": 44, "chapter": "light" },
+    { "id": "panel", "kind": "illustration", "icon": "panel", "x": 411, "y": 330, "width": 262, "height": 335, "title": "Solar panel", "body": "PV cells turn light\ninto DC electricity.", "kicker": "02 / CAPTURE", "fill": "surface", "at": 10000, "drawDuration": 1750, "titleAt": 11900, "bodyAt": 12600, "cps": 44, "chapter": "capture" },
+    { "id": "inverter", "kind": "illustration", "icon": "inverter", "x": 742, "y": 330, "width": 262, "height": 335, "title": "Inverter", "body": "Converts DC into AC:\nthe home-ready kind.", "kicker": "03 / TRANSFORM", "fill": "surface", "at": 16600, "drawDuration": 1700, "titleAt": 18450, "bodyAt": 19100, "cps": 44, "chapter": "convert" },
+    { "id": "home", "kind": "illustration", "icon": "house", "x": 1073, "y": 330, "width": 262, "height": 335, "title": "Your home", "body": "Useful power for lights,\nappliances, and life.", "kicker": "04 / PUT IT TO WORK", "fill": "surface", "at": 23500, "drawDuration": 1700, "titleAt": 25400, "bodyAt": 26100, "cps": 44, "chapter": "use" }
+  ],
+  "connections": [
+    { "id": "sun-panel", "from": "sun", "to": "panel", "label": "light", "at": 8440, "drawDuration": 950 },
+    { "id": "panel-inverter", "from": "panel", "to": "inverter", "label": "DC", "at": 14700, "drawDuration": 1000 },
+    { "id": "inverter-home", "from": "inverter", "to": "home", "label": "AC", "at": 21600, "drawDuration": 950 }
+  ],
+  "summary": { "title": "The big idea", "text": "Panels make DC. Homes use AC. The inverter bridges the two.", "at": 29200, "y": 702 },
+  "media": [
+    { "id": "roof-image", "kind": "image", "src": "assets/solar-roof.svg", "x": 64, "y": 788, "width": 416, "height": 112, "title": "A roof, reimagined", "caption": "An original illustration, made in SVG.", "at": 33300 },
+    { "id": "story-video", "kind": "video", "generated": "story", "x": 512, "y": 788, "width": 416, "height": 112, "title": "Watch the energy flow", "caption": "Code-rendered preview + WebM export.", "at": 33300 },
+    { "id": "read-source", "kind": "link", "url": "https://www.energy.gov/eere/solar/solar-photovoltaic-system-design-basics", "x": 960, "y": 788, "width": 416, "height": 112, "title": "Go a little deeper", "caption": "System design · U.S. Dept. of Energy.", "at": 33300 }
+  ],
+  "captions": [
+    { "start": 0, "end": 4300, "text": "Let's follow sunlight on its way to a useful job." },
+    { "start": 4300, "end": 9700, "text": "Sunlight carries energy in tiny packets called photons." },
+    { "start": 9700, "end": 16100, "text": "Photovoltaic cells turn absorbed light energy into DC electricity." },
+    { "start": 16100, "end": 23300, "text": "The inverter changes direct current, DC, into alternating current, AC." },
+    { "start": 23300, "end": 29200, "text": "That AC electricity can supply a home's lights and appliances." },
+    { "start": 29200, "end": 38000, "text": "Panel: capture. Inverter: convert. Home: use. That's the daytime path." }
+  ],
+  "sources": [
+    { "title": "U.S. Department of Energy — How Does Solar Energy Work?", "url": "https://www.energy.gov/eere/solar/how-does-solar-work", "checked": "2026-10-31" },
+    { "title": "U.S. Department of Energy — Solar Photovoltaic System Design Basics", "url": "https://www.energy.gov/eere/solar/solar-photovoltaic-system-design-basics", "checked": "2026-10-31" }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "monamotron",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Monamotron is a portable AI skill for code-drawn animated visual explanations and real video export.",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test skill/monamotron/tests/core.test.mjs examples/neural-network/tests/learning.test.mjs",
+    "build": "npm run build:solar && npm run build:neural",
+    "build:solar": "node skill/monamotron/scripts/build.mjs --scene skill/monamotron/examples/solar-story.json --out docs/demo/solar.html --offline",
+    "build:neural": "node examples/neural-network/build.mjs && node scripts/sync-demo.mjs",
+    "check:browser": "npm run check:browser:solar && npm run check:browser:neural",
+    "check:browser:solar": "node skill/monamotron/scripts/check-browser.mjs --input docs/demo/solar.html --out .artifacts/solar-checks",
+    "check:browser:neural": "node examples/neural-network/check-browser.mjs",
+    "export:neural": "node skill/monamotron/scripts/export.mjs --input examples/neural-network/index.html --out examples/neural-network/exports --png --svg --video --width 1600 && node scripts/sync-public-media.mjs",
+    "brand": "node scripts/create-social-preview.mjs",
+    "github:configure": "node scripts/configure-github.mjs",
+    "verify": "node scripts/verify-repository.mjs",
+    "package": "node scripts/create-release-zip.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

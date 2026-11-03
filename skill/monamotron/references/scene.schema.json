@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:monamotron:visual-story:v1",
+  "title": "Monamotron visual story v1",
+  "type": "object",
+  "required": ["version", "title", "duration", "nodes"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "eyebrow": { "type": "string" },
+    "subtitle": { "type": "string" },
+    "headerNote": { "type": "string" },
+    "language": { "type": "string" },
+    "direction": { "enum": ["ltr", "rtl"] },
+    "width": { "type": "number", "minimum": 320 },
+    "height": { "type": "number", "minimum": 320 },
+    "duration": { "type": "number", "minimum": 1000 },
+    "seed": { "type": "number", "minimum": 0 },
+    "style": { "enum": ["studio-sketch", "clean-board", "blueprint", "chalkboard", "editorial", "playful", "midnight", "notebook"] },
+    "font": { "$ref": "#/$defs/font" },
+    "nodes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/node" } },
+    "connections": { "type": "array", "items": { "$ref": "#/$defs/connection" } },
+    "chapters": { "type": "array", "items": { "type": "object", "required": ["id", "title", "start", "end"], "properties": { "id": { "$ref": "#/$defs/id" }, "title": { "type": "string", "minLength": 1 }, "start": { "$ref": "#/$defs/time" }, "end": { "$ref": "#/$defs/time" }, "explanation": { "type": "string" } }, "additionalProperties": false } },
+    "captions": { "type": "array", "items": { "type": "object", "required": ["start", "end", "text"], "properties": { "start": { "$ref": "#/$defs/time" }, "end": { "$ref": "#/$defs/time" }, "text": { "type": "string", "minLength": 1 } }, "additionalProperties": false } },
+    "summary": { "type": "object", "required": ["text"], "properties": { "title": { "type": "string" }, "text": { "type": "string", "minLength": 1 }, "at": { "$ref": "#/$defs/time" }, "y": { "$ref": "#/$defs/time" } }, "additionalProperties": false },
+    "sources": { "type": "array", "items": { "type": "object", "required": ["title", "url"], "properties": { "title": { "type": "string", "minLength": 1 }, "url": { "type": "string", "pattern": "^https?://" }, "checked": { "type": "string" } }, "additionalProperties": false } },
+    "media": { "type": "array", "items": { "$ref": "#/$defs/media" } },
+    "drawings": { "type": "object", "additionalProperties": { "type": "object", "required": ["strokes"], "properties": { "size": { "type": "number", "exclusiveMinimum": 0 }, "strokes": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["d"], "properties": { "d": { "type": "string", "minLength": 1 }, "fill": { "type": "string" }, "stroke": { "type": "string" }, "width": { "type": "number", "exclusiveMinimum": 0 } }, "additionalProperties": false } } }, "additionalProperties": false } },
+    "mobile": { "type": "object", "properties": { "nodes": { "type": "object", "additionalProperties": { "type": "object", "properties": { "x": { "$ref": "#/$defs/time" }, "y": { "$ref": "#/$defs/time" }, "width": { "type": "number", "minimum": 40 }, "height": { "type": "number", "minimum": 40 } }, "additionalProperties": false } }, "connections": { "type": "object", "additionalProperties": { "type": "object", "properties": { "fromPort": { "$ref": "#/$defs/port" }, "toPort": { "$ref": "#/$defs/port" }, "controlPoints": { "$ref": "#/$defs/controlPoints" }, "labelX": { "type": "number" }, "labelY": { "type": "number" } }, "additionalProperties": false } } }, "additionalProperties": false }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "time": { "type": "number", "minimum": 0 },
+    "font": { "enum": ["excalifont", "virgil", "nunito", "serif", "mono"] },
+    "port": { "enum": ["left", "right", "top", "bottom"] },
+    "controlPoints": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "number" } },
+    "node": {
+      "type": "object", "required": ["id", "x", "y", "width", "height"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "kind": { "enum": ["illustration", "card", "note", "text"] }, "icon": { "type": "string" },
+        "x": { "$ref": "#/$defs/time" }, "y": { "$ref": "#/$defs/time" }, "width": { "type": "number", "minimum": 40 }, "height": { "type": "number", "minimum": 40 },
+        "title": { "type": "string" }, "body": { "type": "string" }, "kicker": { "type": "string" }, "role": { "type": "string" }, "fill": { "type": "string" },
+        "at": { "$ref": "#/$defs/time" }, "drawDuration": { "type": "number", "exclusiveMinimum": 0 }, "titleAt": { "$ref": "#/$defs/time" }, "bodyAt": { "$ref": "#/$defs/time" }, "cps": { "type": "number", "exclusiveMinimum": 0 },
+        "titleSize": { "type": "number", "exclusiveMinimum": 0 }, "bodySize": { "type": "number", "exclusiveMinimum": 0 }, "artSize": { "type": "number", "exclusiveMinimum": 0 }, "artTop": { "type": "number", "minimum": 0 }, "titleOffset": { "type": "number", "minimum": 0 }, "bodyOffset": { "type": "number", "minimum": 0 }, "haloWidth": { "type": "number", "minimum": 0 }, "haloHeight": { "type": "number", "minimum": 0 }, "titleMaxLines": { "type": "number", "minimum": 1 }, "bodyMaxLines": { "type": "number", "minimum": 1 }, "bodyFont": { "$ref": "#/$defs/font" }, "chapter": { "$ref": "#/$defs/id" }, "allowOverlap": { "type": "boolean" },
+        "ports": { "type": "object", "propertyNames": { "$ref": "#/$defs/port" }, "additionalProperties": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } } }
+      }, "additionalProperties": false,
+      "allOf": [{ "if": { "properties": { "kind": { "const": "illustration" } } }, "then": { "required": ["icon"] } }]
+    },
+    "connection": {
+      "type": "object", "required": ["id", "from", "to"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "from": { "$ref": "#/$defs/id" }, "to": { "$ref": "#/$defs/id" }, "fromPort": { "$ref": "#/$defs/port" }, "toPort": { "$ref": "#/$defs/port" }, "label": { "type": "string" }, "at": { "$ref": "#/$defs/time" }, "drawDuration": { "type": "number", "exclusiveMinimum": 0 }, "controlPoints": { "$ref": "#/$defs/controlPoints" }, "labelX": { "type": "number" }, "labelY": { "type": "number" }, "color": { "type": "string" } }, "additionalProperties": false
+    },
+    "media": {
+      "type": "object", "required": ["id", "kind", "x", "y", "width", "height", "title"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "kind": { "enum": ["image", "video", "link"] }, "x": { "$ref": "#/$defs/time" }, "y": { "$ref": "#/$defs/time" }, "width": { "type": "number", "minimum": 40 }, "height": { "type": "number", "minimum": 40 }, "title": { "type": "string", "minLength": 1 }, "caption": { "type": "string" }, "at": { "$ref": "#/$defs/time" }, "src": { "type": "string" }, "poster": { "type": "string" }, "url": { "type": "string", "pattern": "^https?://" }, "generated": { "const": "story" } }, "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "image" } } }, "then": { "required": ["src"] } },
+        { "if": { "properties": { "kind": { "const": "link" } } }, "then": { "required": ["url"] } },
+        { "if": { "properties": { "kind": { "const": "video" } } }, "then": { "anyOf": [{ "required": ["src"] }, { "required": ["url"] }, { "required": ["generated"] }] } }
+      ]
+    }
+  }
+}

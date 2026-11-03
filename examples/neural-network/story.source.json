@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "language": "en",
+  "title": "How a neural\nnetwork learns.",
+  "eyebrow": "MACHINE LEARNING / A SMALL LESSON IN BIG IDEAS",
+  "subtitle": "Guess. Measure. Adjust. Repeat. One small correction at a time.",
+  "headerNote": "It's a feedback loop.\nLet's draw it.",
+  "style": "chalkboard",
+  "font": "excalifont",
+  "width": 1600,
+  "height": 1120,
+  "seed": 17,
+  "duration": 72000,
+  "chapters": [
+    { "id": "orientation", "title": "The learning loop", "start": 0, "end": 6000, "explanation": "This lesson follows a common supervised-learning recipe: make a prediction, measure its loss against a known label, calculate gradients, and update parameters. A neural network is a parameterized function; training changes its weights and biases." },
+    { "id": "example-chapter", "title": "Read an example", "start": 6000, "end": 13000, "explanation": "Our original toy task classifies noisy 5-by-7 pixel glyphs as a seven or a one. Every image has 35 input values. A label of 1 means seven; 0 means one. The large network picture compresses the 35 input nodes into five visible representatives." },
+    { "id": "forward-chapter", "title": "Make a prediction", "start": 13000, "end": 25000, "explanation": "Each of the six hidden units computes a weighted sum of the 35 pixels plus its bias, then applies sigmoid. The output computes another weighted sum plus a bias and applies sigmoid to produce a score for class seven. The untrained score on the pictured example is {{initialProbability}}. There are 223 learnable weights and biases. Other networks may use different activations and many more layers." },
+    { "id": "loss-chapter", "title": "Measure the error", "start": 25000, "end": 34000, "explanation": "Binary cross-entropy compares the prediction p to the known binary label y: L = -[y ln(p) + (1-y) ln(1-p)]. On this seven, y is 1, so L = -ln(p). The initial loss on this example is {{initialLoss}}. A larger score for the correct class reduces this example's loss." },
+    { "id": "backprop-chapter", "title": "Find the gradients", "start": 34000, "end": 45000, "explanation": "Backpropagation applies the chain rule backward through the calculation graph to find the derivative of loss with respect to every parameter. A gradient measures local sensitivity. Computing gradients does not itself change the weights. For the illustrated output weight, the gradient on this example is {{selectedGradient}}." },
+    { "id": "update-chapter", "title": "Take a small step", "start": 45000, "end": 55000, "explanation": "Gradient descent updates a parameter using new weight = old weight - learning rate times gradient. With a step size of 0.35, the pictured output weight changes from {{weightBefore}} to {{weightAfter}}. Other parameters, including biases, update too. Running the same example through the updated network changes its score to {{firstProbability}}. The direction of each weight change depends on its gradient." },
+    { "id": "practice-chapter", "title": "Practice + check", "start": 55000, "end": 64000, "explanation": "After that single-example step, the code runs 200 full-batch training passes on 120 independently generated noisy toy digits. The plot shows actual measured training and held-out binary cross-entropy. The 48 held-out digits never enter gradient calculations. In this fixed toy run, {{heldOutCorrect}} of 48 checks are correct. This is not a result on real handwriting data. Falling training loss alone does not establish generalization; unfamiliar examples must be checked." },
+    { "id": "recap-chapter", "title": "Keep the big idea", "start": 64000, "end": 72000, "explanation": "Predictions move forward through the network. Gradients are computed backward from loss. An optimizer changes weights and biases, and the cycle repeats across examples. The goal is useful performance on new data, not just fitting the examples used for updates. The supporting illustrations and source links add more detail." }
+  ],
+  "nodes": [
+    { "id": "example", "kind": "illustration", "icon": "pixel-seven", "x": 74, "y": 300, "width": 236, "height": 340, "title": "An example", "body": "Pixels + label \"7\".\nOur task: 7 or 1.", "kicker": "01 / READ", "at": 6200, "drawDuration": 2100, "titleAt": 8500, "bodyAt": 9200, "cps": 44, "chapter": "example-chapter" },
+    { "id": "network", "kind": "illustration", "icon": "network-six", "x": 422, "y": 300, "width": 628, "height": 340, "artSize": 520, "artTop": 34, "haloWidth": 566, "haloHeight": 202, "titleOffset": 242, "bodyOffset": 278, "title": "Make a guess", "body": "35 pixels. 6 hidden units. 1 score.\nWeighted sums + biases + sigmoid.", "kicker": "02 / PREDICT", "at": 13000, "drawDuration": 6800, "titleAt": 20100, "bodyAt": 21400, "cps": 44, "chapter": "forward-chapter" },
+    { "id": "loss", "kind": "illustration", "icon": "cross-entropy", "x": 1182, "y": 300, "width": 340, "height": 340, "title": "Measure error", "body": "Correct label: 7 (y = 1).\nLoss = -ln(p).", "kicker": "03 / COMPARE", "at": 25100, "drawDuration": 1400, "titleAt": 26700, "bodyAt": 27700, "cps": 44, "chapter": "loss-chapter" },
+    { "id": "backprop", "kind": "illustration", "icon": "chain-rule", "x": 1150, "y": 660, "width": 374, "height": 210, "artSize": 110, "artTop": 27, "haloWidth": 170, "haloHeight": 112, "titleOffset": 145, "bodyOffset": 177, "titleSize": 27, "bodySize": 18, "bodyMaxLines": 2, "title": "Backpropagate", "body": "Trace loss backward.\nCompute parameter gradients.", "kicker": "04 / DIFFERENTIATE", "at": 34200, "drawDuration": 1900, "titleAt": 36300, "bodyAt": 37400, "cps": 43, "chapter": "backprop-chapter" },
+    { "id": "update", "kind": "illustration", "icon": "weight-dial", "x": 560, "y": 660, "width": 460, "height": 210, "artSize": 110, "artTop": 27, "haloWidth": 170, "haloHeight": 112, "titleOffset": 145, "bodyOffset": 177, "titleSize": 27, "bodySize": 18, "bodyMaxLines": 2, "title": "Adjust the weights", "body": "Small steps change weights.\nBiases learn, too.", "kicker": "05 / UPDATE", "at": 45100, "drawDuration": 1300, "titleAt": 46600, "bodyAt": 47700, "cps": 44, "chapter": "update-chapter" },
+    { "id": "practice", "kind": "illustration", "icon": "loss-trace", "x": 74, "y": 660, "width": 354, "height": 210, "artSize": 110, "artTop": 27, "haloWidth": 170, "haloHeight": 112, "titleOffset": 145, "bodyOffset": 177, "titleSize": 27, "bodySize": 18, "bodyMaxLines": 2, "title": "Repeat + check", "body": "Practice on many examples.", "kicker": "06 / PRACTICE", "at": 55200, "drawDuration": 1100, "titleAt": 56500, "bodyAt": 57300, "cps": 44, "chapter": "practice-chapter" }
+  ],
+  "connections": [
+    { "id": "example-network", "from": "example", "to": "network", "label": "pixels", "at": 11700, "drawDuration": 950, "color": "mint", "labelY": 420 },
+    { "id": "network-loss", "from": "network", "to": "loss", "label": "score", "at": 23800, "drawDuration": 950, "color": "mint", "labelY": 420 },
+    { "id": "loss-backprop", "from": "loss", "to": "backprop", "fromPort": "bottom", "toPort": "top", "label": "differentiate", "at": 32800, "drawDuration": 950, "color": "gold", "labelX": 1377, "labelY": 654 },
+    { "id": "backprop-update", "from": "backprop", "to": "update", "fromPort": "left", "toPort": "right", "label": "gradients", "at": 43200, "drawDuration": 950, "color": "gold", "labelY": 790 },
+    { "id": "update-network", "from": "update", "to": "network", "fromPort": "top", "toPort": "bottom", "label": "new weights", "at": 51900, "drawDuration": 900, "color": "coral", "labelX": 854, "labelY": 655 },
+    { "id": "update-practice", "from": "update", "to": "practice", "fromPort": "left", "toPort": "right", "label": "repeat", "at": 54200, "drawDuration": 850, "color": "coral", "labelY": 790 }
+  ],
+  "summary": { "title": "The big idea", "text": "Predictions forward. Gradients backward. Small updates. Repeat.", "at": 64200, "y": 905 },
+  "media": [
+    { "id": "neuron-image", "kind": "image", "src": "assets/inside-a-neuron.svg", "x": 74, "y": 960, "width": 347, "height": 105, "title": "Inside a neuron", "caption": "A worked sum + activation.", "at": 65900 },
+    { "id": "curves-image", "kind": "image", "src": "assets/learning-curves.svg", "x": 438, "y": 960, "width": 347, "height": 105, "title": "Real learning curves", "caption": "Measured on our toy data.", "at": 65900 },
+    { "id": "lesson-video", "kind": "video", "generated": "story", "x": 802, "y": 960, "width": 347, "height": 105, "title": "Watch it learn", "caption": "Code-rendered video + export.", "at": 65900 },
+    { "id": "deeper-video", "kind": "link", "url": "https://www.youtube.com/watch?v=tIeHLnjs5U8", "x": 1166, "y": 960, "width": 347, "height": 105, "title": "A deeper explanation", "caption": "3Blue1Brown / calculus.", "at": 65900 }
+  ],
+  "captions": [
+    { "start": 0, "end": 6000, "text": "A neural network learns by adjusting the numbers inside it." },
+    { "start": 6000, "end": 13000, "text": "Start with an example and its correct label. This tiny picture is a seven." },
+    { "start": 13000, "end": 25000, "text": "Weighted sums, biases, and activations turn pixels into a prediction." },
+    { "start": 25000, "end": 34000, "text": "Compare the score to the label. The loss measures how wrong the prediction is." },
+    { "start": 34000, "end": 45000, "text": "Backpropagation works backward to calculate each parameter's gradient." },
+    { "start": 45000, "end": 52000, "text": "Gradient descent takes a small step: old weight minus step size times gradient." },
+    { "start": 52000, "end": 55000, "text": "With updated weights and biases, this example gets a better score." },
+    { "start": 55000, "end": 64000, "text": "Repeat across examples, and check separate data to see what the model learned." },
+    { "start": 64000, "end": 72000, "text": "Guess. Measure. Adjust. Repeat. Then test whether the learning carries over." }
+  ],
+  "sources": [
+    { "title": "PyTorch — Optimizing Model Parameters", "url": "https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html", "checked": "2026-10-31" },
+    { "title": "Google ML Crash Course — Nodes and Hidden Layers", "url": "https://developers.google.com/machine-learning/crash-course/neural-networks/nodes-hidden-layers", "checked": "2026-10-31" },
+    { "title": "Google ML Crash Course — Generalization", "url": "https://developers.google.com/machine-learning/crash-course/overfitting/generalization", "checked": "2026-10-31" },
+    { "title": "3Blue1Brown — Backpropagation Calculus (Deep Learning Chapter 4)", "url": "https://www.youtube.com/watch?v=tIeHLnjs5U8", "checked": "2026-10-31" }
+  ],
+  "mobile": {
+    "connections": {
+      "update-network": { "fromPort": "right", "toPort": "right", "controlPoints": [585, 1955, 585, 839], "labelX": 472, "labelY": 1428 }
+    }
+  }
+}

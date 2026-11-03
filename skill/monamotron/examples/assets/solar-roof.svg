@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">An illustrated home with rooftop solar panels</title>
+  <desc id="desc">Original code-drawn artwork showing sunshine, a solar roof, a powered home, and plants.</desc>
+  <rect width="960" height="720" fill="#f4efdf"/>
+  <ellipse cx="478" cy="602" rx="334" ry="39" fill="#d8dec8"/>
+  <path d="M196 393 L196 590 L738 590 L738 388 L471 177 Z" fill="#fbf8ee" stroke="#293449" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M143 405 L472 139 L790 402" fill="none" stroke="#293449" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M582 232 L582 153 L651 153 L651 290" fill="#e7b299" stroke="#293449" stroke-width="7"/>
+  <path d="M254 347 L438 210 L570 311 L366 461 Z" fill="#aab8db" stroke="#293449" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M289 356 L438 244 L529 314 L369 430 Z" fill="#d2d9e9" stroke="#293449" stroke-width="4"/>
+  <path d="M338 321 L415 397 M387 284 L462 363 M316 384 L478 268 M343 409 L504 291" fill="none" stroke="#51689f" stroke-width="4"/>
+  <path d="M261 442 L340 442 L340 520 L261 520 Z M599 428 L678 428 L678 508 L599 508 Z" fill="#f3cd68" stroke="#293449" stroke-width="6"/>
+  <path d="M301 443 L301 519 M262 481 L339 481 M638 429 L638 507 M600 468 L677 468" fill="none" stroke="#293449" stroke-width="4"/>
+  <path d="M420 590 L420 450 Q464 422 515 451 L515 590" fill="#d0c6e7" stroke="#293449" stroke-width="6"/>
+  <circle cx="496" cy="525" r="6" fill="#293449"/>
+  <path d="M734 582 C687 509 740 484 743 433 C786 471 796 531 734 582 Z M728 570 C699 542 674 548 665 508 C712 502 731 521 728 570 Z" fill="#aed0b4" stroke="#293449" stroke-width="5"/>
+  <path d="M710 583 L759 583 L749 627 L719 627 Z" fill="#ddb098" stroke="#293449" stroke-width="5"/>
+  <circle cx="177" cy="153" r="65" fill="#f3cd68" stroke="#293449" stroke-width="6"/>
+  <path d="M176 48 L176 22 M177 254 L177 281 M73 153 L44 153 M282 153 L310 153 M104 78 L82 56 M252 78 L273 57 M104 228 L82 250 M252 227 L274 249" fill="none" stroke="#293449" stroke-width="6" stroke-linecap="round"/>
+  <path d="M319 121 C336 92 368 90 387 110 C421 85 456 116 449 139 L323 139" fill="#fffaf0" stroke="#293449" stroke-width="4" stroke-linecap="round"/>
+  <path d="M762 99 C778 75 806 79 818 95 C850 79 876 102 872 121 L769 121" fill="#fffaf0" stroke="#293449" stroke-width="4" stroke-linecap="round"/>
+  <path d="M111 591 L808 591" stroke="#293449" stroke-width="5" stroke-linecap="round"/>
+</svg>

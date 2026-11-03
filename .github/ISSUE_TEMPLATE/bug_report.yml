@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a reproducible skill, renderer, layout, media, or export problem.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve Monamotron. Do not include secrets or private media.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v1.0.0 or commit SHA
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: AI host and model
+      placeholder: OpenCode with provider/model, Claude Code, or another host
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Windows 11, Node 20.18, Edge 130
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Include the prompt or minimal scene, command, and exact sequence.
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. Seek to ...
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Error output or rendered evidence
+      description: Paste relevant errors and attach a screenshot when the problem is visual.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I removed secrets and private information.
+          required: true
+        - label: I searched existing issues for the same problem.
+          required: true

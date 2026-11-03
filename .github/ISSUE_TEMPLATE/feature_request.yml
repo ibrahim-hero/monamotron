@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose a visual style, lesson capability, renderer improvement, export, or host integration.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or teaching need
+      description: What cannot be explained or produced well today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the user experience, expected artifact, and why it belongs in the reusable skill.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Skill instructions and teaching workflow
+        - Art direction or typography
+        - Scene format and validation
+        - SVG/Canvas renderer
+        - Images, media, or video export
+        - Accessibility or responsive layout
+        - AI host integration
+        - Documentation or examples
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Example or visual reference
+      description: Attach a sketch or link to a reference you have permission to share.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This is reusable beyond one private lesson.
+          required: true
+        - label: I have identified any third-party media or licensing requirements.
+          required: true

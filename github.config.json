@@ -1,0 +1,27 @@
+{
+  "owner": "ibrahim-hero",
+  "repository": "monamotron",
+  "displayName": "Monamotron",
+  "tagline": "Your AI explains ideas by drawing them.",
+  "description": "An AI skill that turns prompts into beautifully animated visual lessons—with code-drawn illustrations, handwritten text, connected whiteboards, images, and real video export. Works with OpenCode, Claude Code, and skill-aware agents.",
+  "topics": [
+    "ai",
+    "agent-skills",
+    "ai-agents",
+    "monamotron",
+    "visual-explanations",
+    "whiteboard-animation",
+    "svg",
+    "canvas",
+    "generative-art",
+    "education",
+    "video-generation",
+    "opencode",
+    "claude-code",
+    "excalidraw",
+    "miro",
+    "javascript"
+  ],
+  "repositoryUrl": "https://github.com/ibrahim-hero/monamotron",
+  "demoUrl": "https://ibrahim-hero.github.io/monamotron/"
+}

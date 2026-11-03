@@ -1,0 +1,17 @@
+{
+  "name": "monamotron",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Monamotron portable AI skill and code-driven illustrated whiteboard runtime.",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.mjs --scene examples/solar-story.json --out dist/solar-story.html",
+    "check": "node --test tests/core.test.mjs",
+    "check:browser": "node scripts/check-browser.mjs --input dist/solar-story.html",
+    "export": "node scripts/export.mjs --input dist/solar-story.html --out dist/exports --png --svg --video",
+    "package": "node scripts/package.mjs --out ../../dist/monamotron-skill.zip"
+  },
+  "devDependencies": { "playwright": "1.64.1" }
+}

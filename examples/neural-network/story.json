@@ -1,0 +1,1061 @@
+{
+  "version": 1,
+  "language": "en",
+  "title": "How a neural\nnetwork learns.",
+  "eyebrow": "MACHINE LEARNING / A SMALL LESSON IN BIG IDEAS",
+  "subtitle": "Guess. Measure. Adjust. Repeat. One small correction at a time.",
+  "headerNote": "It's a feedback loop.\nLet's draw it.",
+  "style": "chalkboard",
+  "font": "excalifont",
+  "width": 1600,
+  "height": 1120,
+  "seed": 17,
+  "duration": 72000,
+  "chapters": [
+    {
+      "id": "orientation",
+      "title": "The learning loop",
+      "start": 0,
+      "end": 6000,
+      "explanation": "This lesson follows a common supervised-learning recipe: make a prediction, measure its loss against a known label, calculate gradients, and update parameters. A neural network is a parameterized function; training changes its weights and biases."
+    },
+    {
+      "id": "example-chapter",
+      "title": "Read an example",
+      "start": 6000,
+      "end": 13000,
+      "explanation": "Our original toy task classifies noisy 5-by-7 pixel glyphs as a seven or a one. Every image has 35 input values. A label of 1 means seven; 0 means one. The large network picture compresses the 35 input nodes into five visible representatives."
+    },
+    {
+      "id": "forward-chapter",
+      "title": "Make a prediction",
+      "start": 13000,
+      "end": 25000,
+      "explanation": "Each of the six hidden units computes a weighted sum of the 35 pixels plus its bias, then applies sigmoid. The output computes another weighted sum plus a bias and applies sigmoid to produce a score for class seven. The untrained score on the pictured example is 0.349. There are 223 learnable weights and biases. Other networks may use different activations and many more layers."
+    },
+    {
+      "id": "loss-chapter",
+      "title": "Measure the error",
+      "start": 25000,
+      "end": 34000,
+      "explanation": "Binary cross-entropy compares the prediction p to the known binary label y: L = -[y ln(p) + (1-y) ln(1-p)]. On this seven, y is 1, so L = -ln(p). The initial loss on this example is 1.053. A larger score for the correct class reduces this example's loss."
+    },
+    {
+      "id": "backprop-chapter",
+      "title": "Find the gradients",
+      "start": 34000,
+      "end": 45000,
+      "explanation": "Backpropagation applies the chain rule backward through the calculation graph to find the derivative of loss with respect to every parameter. A gradient measures local sensitivity. Computing gradients does not itself change the weights. For the illustrated output weight, the gradient on this example is -0.231."
+    },
+    {
+      "id": "update-chapter",
+      "title": "Take a small step",
+      "start": 45000,
+      "end": 55000,
+      "explanation": "Gradient descent updates a parameter using new weight = old weight - learning rate times gradient. With a step size of 0.35, the pictured output weight changes from -0.043 to +0.038. Other parameters, including biases, update too. Running the same example through the updated network changes its score to 0.482. The direction of each weight change depends on its gradient."
+    },
+    {
+      "id": "practice-chapter",
+      "title": "Practice + check",
+      "start": 55000,
+      "end": 64000,
+      "explanation": "After that single-example step, the code runs 200 full-batch training passes on 120 independently generated noisy toy digits. The plot shows actual measured training and held-out binary cross-entropy. The 48 held-out digits never enter gradient calculations. In this fixed toy run, 48 of 48 checks are correct. This is not a result on real handwriting data. Falling training loss alone does not establish generalization; unfamiliar examples must be checked."
+    },
+    {
+      "id": "recap-chapter",
+      "title": "Keep the big idea",
+      "start": 64000,
+      "end": 72000,
+      "explanation": "Predictions move forward through the network. Gradients are computed backward from loss. An optimizer changes weights and biases, and the cycle repeats across examples. The goal is useful performance on new data, not just fitting the examples used for updates. The supporting illustrations and source links add more detail."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "example",
+      "kind": "illustration",
+      "icon": "pixel-seven",
+      "x": 74,
+      "y": 300,
+      "width": 236,
+      "height": 340,
+      "title": "An example",
+      "body": "Pixels + label \"7\".\nOur task: 7 or 1.",
+      "kicker": "01 / READ",
+      "at": 6200,
+      "drawDuration": 2100,
+      "titleAt": 8500,
+      "bodyAt": 9200,
+      "cps": 44,
+      "chapter": "example-chapter"
+    },
+    {
+      "id": "network",
+      "kind": "illustration",
+      "icon": "network-six",
+      "x": 422,
+      "y": 300,
+      "width": 628,
+      "height": 340,
+      "artSize": 520,
+      "artTop": 34,
+      "haloWidth": 566,
+      "haloHeight": 202,
+      "titleOffset": 242,
+      "bodyOffset": 278,
+      "title": "Make a guess",
+      "body": "Before training: p(7) = 0.349.\n35 → 6 → 1 / 223 parameters.",
+      "kicker": "02 / PREDICT",
+      "at": 13000,
+      "drawDuration": 6800,
+      "titleAt": 20100,
+      "bodyAt": 21400,
+      "cps": 44,
+      "chapter": "forward-chapter"
+    },
+    {
+      "id": "loss",
+      "kind": "illustration",
+      "icon": "cross-entropy",
+      "x": 1182,
+      "y": 300,
+      "width": 340,
+      "height": 340,
+      "title": "Measure error",
+      "body": "Target y = 1.\nLoss = 1.053.",
+      "kicker": "03 / COMPARE",
+      "at": 25100,
+      "drawDuration": 1400,
+      "titleAt": 26700,
+      "bodyAt": 27700,
+      "cps": 44,
+      "chapter": "loss-chapter"
+    },
+    {
+      "id": "backprop",
+      "kind": "illustration",
+      "icon": "chain-rule",
+      "x": 1150,
+      "y": 660,
+      "width": 374,
+      "height": 210,
+      "artSize": 110,
+      "artTop": 27,
+      "haloWidth": 170,
+      "haloHeight": 112,
+      "titleOffset": 145,
+      "bodyOffset": 177,
+      "titleSize": 27,
+      "bodySize": 18,
+      "bodyMaxLines": 2,
+      "title": "Backpropagate",
+      "body": "Gradient for one weight: -0.231.\nNo weights change yet.",
+      "kicker": "04 / DIFFERENTIATE",
+      "at": 34200,
+      "drawDuration": 1900,
+      "titleAt": 36300,
+      "bodyAt": 37400,
+      "cps": 43,
+      "chapter": "backprop-chapter"
+    },
+    {
+      "id": "update",
+      "kind": "illustration",
+      "icon": "weight-dial",
+      "x": 560,
+      "y": 660,
+      "width": 460,
+      "height": 210,
+      "artSize": 110,
+      "artTop": 27,
+      "haloWidth": 170,
+      "haloHeight": 112,
+      "titleOffset": 145,
+      "bodyOffset": 177,
+      "titleSize": 27,
+      "bodySize": 18,
+      "bodyMaxLines": 2,
+      "title": "Adjust the weights",
+      "body": "w: -0.043 → +0.038.\np(7): 0.349 → 0.482.",
+      "kicker": "05 / UPDATE",
+      "at": 45100,
+      "drawDuration": 1300,
+      "titleAt": 46600,
+      "bodyAt": 47700,
+      "cps": 44,
+      "chapter": "update-chapter"
+    },
+    {
+      "id": "practice",
+      "kind": "illustration",
+      "icon": "loss-trace",
+      "x": 74,
+      "y": 660,
+      "width": 354,
+      "height": 210,
+      "artSize": 110,
+      "artTop": 27,
+      "haloWidth": 170,
+      "haloHeight": 112,
+      "titleOffset": 145,
+      "bodyOffset": 177,
+      "titleSize": 27,
+      "bodySize": 18,
+      "bodyMaxLines": 2,
+      "title": "Repeat + check",
+      "body": "Held-out: 48/48 correct.\nLoss: 0.700 → 0.026.",
+      "kicker": "06 / PRACTICE",
+      "at": 55200,
+      "drawDuration": 1100,
+      "titleAt": 56500,
+      "bodyAt": 57300,
+      "cps": 44,
+      "chapter": "practice-chapter"
+    }
+  ],
+  "connections": [
+    {
+      "id": "example-network",
+      "from": "example",
+      "to": "network",
+      "label": "pixels",
+      "at": 11700,
+      "drawDuration": 950,
+      "color": "mint",
+      "labelY": 420
+    },
+    {
+      "id": "network-loss",
+      "from": "network",
+      "to": "loss",
+      "label": "score",
+      "at": 23800,
+      "drawDuration": 950,
+      "color": "mint",
+      "labelY": 420
+    },
+    {
+      "id": "loss-backprop",
+      "from": "loss",
+      "to": "backprop",
+      "fromPort": "bottom",
+      "toPort": "top",
+      "label": "differentiate",
+      "at": 32800,
+      "drawDuration": 950,
+      "color": "gold",
+      "labelX": 1377,
+      "labelY": 654
+    },
+    {
+      "id": "backprop-update",
+      "from": "backprop",
+      "to": "update",
+      "fromPort": "left",
+      "toPort": "right",
+      "label": "gradients",
+      "at": 43200,
+      "drawDuration": 950,
+      "color": "gold",
+      "labelY": 790
+    },
+    {
+      "id": "update-network",
+      "from": "update",
+      "to": "network",
+      "fromPort": "top",
+      "toPort": "bottom",
+      "label": "new weights",
+      "at": 51900,
+      "drawDuration": 900,
+      "color": "coral",
+      "labelX": 854,
+      "labelY": 655
+    },
+    {
+      "id": "update-practice",
+      "from": "update",
+      "to": "practice",
+      "fromPort": "left",
+      "toPort": "right",
+      "label": "repeat",
+      "at": 54200,
+      "drawDuration": 850,
+      "color": "coral",
+      "labelY": 790
+    }
+  ],
+  "summary": {
+    "title": "The big idea",
+    "text": "Predictions forward. Gradients backward. Small updates. Repeat.",
+    "at": 64200,
+    "y": 905
+  },
+  "media": [
+    {
+      "id": "neuron-image",
+      "kind": "image",
+      "src": "assets/inside-a-neuron.svg",
+      "x": 74,
+      "y": 960,
+      "width": 347,
+      "height": 105,
+      "title": "Inside a neuron",
+      "caption": "A worked sum + activation.",
+      "at": 65900
+    },
+    {
+      "id": "curves-image",
+      "kind": "image",
+      "src": "assets/learning-curves.svg",
+      "x": 438,
+      "y": 960,
+      "width": 347,
+      "height": 105,
+      "title": "Real learning curves",
+      "caption": "Measured on our toy data.",
+      "at": 65900
+    },
+    {
+      "id": "lesson-video",
+      "kind": "video",
+      "generated": "story",
+      "x": 802,
+      "y": 960,
+      "width": 347,
+      "height": 105,
+      "title": "Watch it learn",
+      "caption": "Code-rendered video + export.",
+      "at": 65900
+    },
+    {
+      "id": "deeper-video",
+      "kind": "link",
+      "url": "https://www.youtube.com/watch?v=tIeHLnjs5U8",
+      "x": 1166,
+      "y": 960,
+      "width": 347,
+      "height": 105,
+      "title": "A deeper explanation",
+      "caption": "3Blue1Brown / calculus.",
+      "at": 65900
+    }
+  ],
+  "captions": [
+    {
+      "start": 0,
+      "end": 6000,
+      "text": "A neural network learns by adjusting the numbers inside it."
+    },
+    {
+      "start": 6000,
+      "end": 13000,
+      "text": "Start with an example and its correct label. This tiny picture is a seven."
+    },
+    {
+      "start": 13000,
+      "end": 25000,
+      "text": "Weighted sums, biases, and activations turn pixels into a prediction."
+    },
+    {
+      "start": 25000,
+      "end": 34000,
+      "text": "Compare the score to the label. The loss measures how wrong the prediction is."
+    },
+    {
+      "start": 34000,
+      "end": 45000,
+      "text": "Backpropagation works backward to calculate each parameter's gradient."
+    },
+    {
+      "start": 45000,
+      "end": 52000,
+      "text": "Gradient descent takes a small step: old weight minus step size times gradient."
+    },
+    {
+      "start": 52000,
+      "end": 55000,
+      "text": "With updated weights and biases, this example gets a better score."
+    },
+    {
+      "start": 55000,
+      "end": 64000,
+      "text": "Repeat across examples, and check separate data to see what the model learned."
+    },
+    {
+      "start": 64000,
+      "end": 72000,
+      "text": "Guess. Measure. Adjust. Repeat. Then test whether the learning carries over."
+    }
+  ],
+  "sources": [
+    {
+      "title": "PyTorch — Optimizing Model Parameters",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html",
+      "checked": "2026-10-31"
+    },
+    {
+      "title": "Google ML Crash Course — Nodes and Hidden Layers",
+      "url": "https://developers.google.com/machine-learning/crash-course/neural-networks/nodes-hidden-layers",
+      "checked": "2026-10-31"
+    },
+    {
+      "title": "Google ML Crash Course — Generalization",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/generalization",
+      "checked": "2026-10-31"
+    },
+    {
+      "title": "3Blue1Brown — Backpropagation Calculus (Deep Learning Chapter 4)",
+      "url": "https://www.youtube.com/watch?v=tIeHLnjs5U8",
+      "checked": "2026-10-31"
+    }
+  ],
+  "mobile": {
+    "connections": {
+      "update-network": {
+        "fromPort": "right",
+        "toPort": "right",
+        "controlPoints": [
+          585,
+          1955,
+          585,
+          839
+        ],
+        "labelX": 472,
+        "labelY": 1428
+      }
+    }
+  },
+  "$schema": "../../skill/monamotron/references/scene.schema.json",
+  "drawings": {
+    "pixel-seven": {
+      "size": 160,
+      "strokes": [
+        {
+          "d": "M20 1 L138 1 L138 158 L20 158 Z",
+          "fill": "none",
+          "stroke": "muted",
+          "width": 1.7
+        },
+        {
+          "d": "M28 8 H44 V24 H28 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M49 8 H65 V24 H49 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M70 8 H86 V24 H70 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M91 8 H107 V24 H91 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M112 8 H128 V24 H112 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M28 29 H44 V45 H28 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M49 29 H65 V45 H49 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M70 29 H86 V45 H70 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M91 29 H107 V45 H91 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M112 29 H128 V45 H112 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M28 50 H44 V66 H28 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M49 50 H65 V66 H49 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M70 50 H86 V66 H70 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M91 50 H107 V66 H91 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M112 50 H128 V66 H112 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M28 71 H44 V87 H28 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M49 71 H65 V87 H49 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M70 71 H86 V87 H70 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M91 71 H107 V87 H91 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M112 71 H128 V87 H112 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M28 92 H44 V108 H28 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M49 92 H65 V108 H49 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M70 92 H86 V108 H70 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M91 92 H107 V108 H91 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M112 92 H128 V108 H112 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M28 113 H44 V129 H28 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M49 113 H65 V129 H49 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M70 113 H86 V129 H70 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M91 113 H107 V129 H91 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M112 113 H128 V129 H112 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M28 134 H44 V150 H28 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M49 134 H65 V150 H49 Z",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 1.1
+        },
+        {
+          "d": "M70 134 H86 V150 H70 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M91 134 H107 V150 H91 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        },
+        {
+          "d": "M112 134 H128 V150 H112 Z",
+          "fill": "surface",
+          "stroke": "line",
+          "width": 1.1
+        }
+      ]
+    },
+    "network-six": {
+      "size": 520,
+      "strokes": [
+        {
+          "d": "M62 22 C136 22 183 16 250 16",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.4314508881419896
+        },
+        {
+          "d": "M62 58 C136 58 183 16 250 16",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 2.136644466407597
+        },
+        {
+          "d": "M62 94 C136 94 183 16 250 16",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.7897701646201312
+        },
+        {
+          "d": "M62 130 C136 130 183 16 250 16",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 0.9490797436796129
+        },
+        {
+          "d": "M62 166 C136 166 183 16 250 16",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.2152728469576686
+        },
+        {
+          "d": "M62 22 C136 22 183 47 250 47",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 2.271104178484529
+        },
+        {
+          "d": "M62 58 C136 58 183 47 250 47",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.8091324189212172
+        },
+        {
+          "d": "M62 94 C136 94 183 47 250 47",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.8353800350800156
+        },
+        {
+          "d": "M62 130 C136 130 183 47 250 47",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.5054125712253152
+        },
+        {
+          "d": "M62 166 C136 166 183 47 250 47",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.3607527835760265
+        },
+        {
+          "d": "M62 22 C136 22 183 78 250 78",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.845024836109951
+        },
+        {
+          "d": "M62 58 C136 58 183 78 250 78",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.3799197402317076
+        },
+        {
+          "d": "M62 94 C136 94 183 78 250 78",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.0557413523551076
+        },
+        {
+          "d": "M62 130 C136 130 183 78 250 78",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.769695107685402
+        },
+        {
+          "d": "M62 166 C136 166 183 78 250 78",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.2804571721702813
+        },
+        {
+          "d": "M62 22 C136 22 183 109 250 109",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 2.1787472137715667
+        },
+        {
+          "d": "M62 58 C136 58 183 109 250 109",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.0594963974785059
+        },
+        {
+          "d": "M62 94 C136 94 183 109 250 109",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.2063077728729694
+        },
+        {
+          "d": "M62 130 C136 130 183 109 250 109",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 2.196022935770452
+        },
+        {
+          "d": "M62 166 C136 166 183 109 250 109",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.324321649596095
+        },
+        {
+          "d": "M62 22 C136 22 183 140 250 140",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.1155028572306036
+        },
+        {
+          "d": "M62 58 C136 58 183 140 250 140",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 2.3941455759108066
+        },
+        {
+          "d": "M62 94 C136 94 183 140 250 140",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.2954117957036941
+        },
+        {
+          "d": "M62 130 C136 130 183 140 250 140",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.4479765101335942
+        },
+        {
+          "d": "M62 166 C136 166 183 140 250 140",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.66934635033831
+        },
+        {
+          "d": "M62 22 C136 22 183 171 250 171",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.7498698733747005
+        },
+        {
+          "d": "M62 58 C136 58 183 171 250 171",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.6309829655569046
+        },
+        {
+          "d": "M62 94 C136 94 183 171 250 171",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.5150111285969614
+        },
+        {
+          "d": "M62 130 C136 130 183 171 250 171",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 0.9451223098207265
+        },
+        {
+          "d": "M62 166 C136 166 183 171 250 171",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 0.9473170524928719
+        },
+        {
+          "d": "M274 16 C345 16 396 94 459 94",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.2146005333634093
+        },
+        {
+          "d": "M274 47 C345 47 396 94 459 94",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 2.0837084462400526
+        },
+        {
+          "d": "M274 78 C345 78 396 94 459 94",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.467703107278794
+        },
+        {
+          "d": "M274 109 C345 109 396 94 459 94",
+          "fill": "none",
+          "stroke": "coral",
+          "width": 1.4793371225241572
+        },
+        {
+          "d": "M274 140 C345 140 396 94 459 94",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 1.105057071777992
+        },
+        {
+          "d": "M274 171 C345 171 396 94 459 94",
+          "fill": "none",
+          "stroke": "mint",
+          "width": 2.057155899470672
+        },
+        {
+          "d": "M23 9 Q7 9 7 25 V163 Q7 180 23 180",
+          "fill": "none",
+          "stroke": "muted",
+          "width": 1.8
+        },
+        {
+          "d": "M41 22 A9 9 0 1 0 59 22 A9 9 0 1 0 41 22",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 2
+        },
+        {
+          "d": "M41 58 A9 9 0 1 0 59 58 A9 9 0 1 0 41 58",
+          "fill": "surface",
+          "stroke": "ink",
+          "width": 2
+        },
+        {
+          "d": "M41 94 A9 9 0 1 0 59 94 A9 9 0 1 0 41 94",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 2
+        },
+        {
+          "d": "M41 130 A9 9 0 1 0 59 130 A9 9 0 1 0 41 130",
+          "fill": "surface",
+          "stroke": "ink",
+          "width": 2
+        },
+        {
+          "d": "M41 166 A9 9 0 1 0 59 166 A9 9 0 1 0 41 166",
+          "fill": "mint",
+          "stroke": "mint",
+          "width": 2
+        },
+        {
+          "d": "M48 185 L52 185 M48 192 L52 192 M48 199 L52 199",
+          "fill": "none",
+          "stroke": "muted",
+          "width": 2.5
+        },
+        {
+          "d": "M250 16 A12 12 0 1 0 274 16 A12 12 0 1 0 250 16",
+          "fill": "surface",
+          "stroke": "ink",
+          "width": 2.2
+        },
+        {
+          "d": "M250 47 A12 12 0 1 0 274 47 A12 12 0 1 0 250 47",
+          "fill": "lilac",
+          "stroke": "ink",
+          "width": 2.2
+        },
+        {
+          "d": "M250 78 A12 12 0 1 0 274 78 A12 12 0 1 0 250 78",
+          "fill": "surface",
+          "stroke": "ink",
+          "width": 2.2
+        },
+        {
+          "d": "M250 109 A12 12 0 1 0 274 109 A12 12 0 1 0 250 109",
+          "fill": "lilac",
+          "stroke": "ink",
+          "width": 2.2
+        },
+        {
+          "d": "M250 140 A12 12 0 1 0 274 140 A12 12 0 1 0 250 140",
+          "fill": "surface",
+          "stroke": "ink",
+          "width": 2.2
+        },
+        {
+          "d": "M250 171 A12 12 0 1 0 274 171 A12 12 0 1 0 250 171",
+          "fill": "lilac",
+          "stroke": "ink",
+          "width": 2.2
+        },
+        {
+          "d": "M455 94 A19 19 0 1 0 493 94 A19 19 0 1 0 455 94",
+          "fill": "gold",
+          "stroke": "gold",
+          "width": 2.5
+        },
+        {
+          "d": "M310 202 Q357 192 405 202",
+          "fill": "none",
+          "stroke": "gold",
+          "width": 5
+        }
+      ]
+    },
+    "cross-entropy": {
+      "size": 160,
+      "strokes": [
+        {
+          "d": "M19 14 V139 H151",
+          "fill": "none",
+          "stroke": "muted",
+          "width": 1.8
+        },
+        {
+          "d": "M30.61,29.629598522688866 L32.705555555555556,38.34313848606955 L34.80111111111111,45.49390469365301 L36.89666666666667,51.55812475619331 L38.992222222222225,56.82285470605581 L41.08777777777778,61.474554717188695 L43.18333333333334,65.64121414379743 L45.278888888888886,69.41450152845135 L47.37444444444445,72.86232751739456 L49.47,76.0364057893906 L51.565555555555555,78.97702658846677 L53.66111111111111,81.71619174289486 L55.75666666666667,84.27974293214666 L57.85222222222222,86.6888478569993 L59.94777777777778,88.9610636069769 L62.04333333333334,91.11111382771027 L64.13888888888889,93.1514674208002 L66.23444444444445,95.09277665195617 L68.33,96.94421376224558 L70.42555555555555,98.71373305398109 L72.52111111111111,100.40827741431787 L74.61666666666667,102.03394283853893 L76.71222222222222,103.59611080350253 L78.80777777777779,105.09955574750464 L80.90333333333334,106.54853307117747 L82.9988888888889,107.94685174795009 L85.09444444444443,109.29793466516074 L87.19,110.60486910256122 L89.28555555555555,111.87044922155837 L91.38111111111112,113.09721203610965 L93.47666666666667,114.28746802962448 L95.57222222222222,115.44332734657345 L97.66777777777779,116.56672230483498 L99.76333333333334,117.65942683208081 L101.85888888888888,118.72307331715257 L103.95444444444446,119.75916727832451 L106.05,120.76910017928829 L108.14555555555557,121.7541606666415 L110.24111111111112,122.71554445658302 L112.33666666666667,123.65436306109503 L114.43222222222221,124.57165151333577 L116.52777777777779,125.46837522689513 L118.62333333333333,126.34543610289047 L120.71888888888888,127.20367798175754 L122.81444444444445,128.04389152234518 L124.91,128.86681857902332 L127.00555555555557,129.67315613753314 L129.10111111111112,130.46355986190596 L131.19666666666666,131.23864729767857 L133.29222222222222,131.9990007706128 L135.38777777777779,132.74517001500686 L137.48333333333335,133.47767456131453 L139.57888888888888,134.19700590904773 L141.67444444444445,134.9036295077248 L143.76999999999998,135.59798656585994",
+          "fill": "none",
+          "stroke": "gold",
+          "width": 3.2
+        },
+        {
+          "d": "M60.931661513145016 93.89700915841318 A4 4 0 1 0 68.93166151314502 93.89700915841318 A4 4 0 1 0 60.931661513145016 93.89700915841318",
+          "fill": "coral",
+          "stroke": "coral",
+          "width": 1.5
+        }
+      ]
+    },
+    "chain-rule": {
+      "size": 160,
+      "strokes": [
+        {
+          "d": "M132 79 H102 M111 70 L102 79 L111 88 M72 79 H42 M51 70 L42 79 L51 88",
+          "fill": "none",
+          "stroke": "gold",
+          "width": 3
+        },
+        {
+          "d": "M129 79 A13 13 0 1 0 155 79 A13 13 0 1 0 129 79",
+          "fill": "surface",
+          "stroke": "gold",
+          "width": 2.5
+        },
+        {
+          "d": "M69 79 A13 13 0 1 0 95 79 A13 13 0 1 0 69 79",
+          "fill": "surface",
+          "stroke": "gold",
+          "width": 2.5
+        },
+        {
+          "d": "M9 79 A13 13 0 1 0 35 79 A13 13 0 1 0 9 79",
+          "fill": "surface",
+          "stroke": "gold",
+          "width": 2.5
+        }
+      ]
+    },
+    "weight-dial": {
+      "size": 160,
+      "strokes": [
+        {
+          "d": "M28 80 A52 52 0 1 0 132 80 A52 52 0 1 0 28 80",
+          "fill": "surface",
+          "stroke": "coral",
+          "width": 2.6
+        },
+        {
+          "d": "M37 119 L43 114 M28 82 H37 M41 43 L47 49 M80 28 V38 M120 43 L113 49 M132 81 H123 M121 119 L114 113",
+          "fill": "none",
+          "stroke": "muted",
+          "width": 2
+        },
+        {
+          "d": "M80 80 L111 44",
+          "fill": "none",
+          "stroke": "gold",
+          "width": 4
+        },
+        {
+          "d": "M74 80 A6 6 0 1 0 86 80 A6 6 0 1 0 74 80",
+          "fill": "gold",
+          "stroke": "gold",
+          "width": 1
+        }
+      ]
+    },
+    "loss-trace": {
+      "size": 160,
+      "strokes": [
+        {
+          "d": "M12 18 V144 H152",
+          "fill": "none",
+          "stroke": "muted",
+          "width": 1.8
+        },
+        {
+          "d": "M15,63.72124951498144 L15.675,64.47258470861621 L16.35,65.15969925751946 L17.025,65.83249118830106 L17.7,66.52060031082775 L18.375,67.24429307512668 L19.05,68.0193157679095 L19.725,68.85899815550192 L20.4,69.77508902953942 L21.075,70.77798985886791 L21.75,71.87669035055828 L22.425,73.07855177281971 L23.1,74.38901659122376 L23.775,75.81129464846232 L24.450000000000003,77.34606377202428 L25.125,78.99121678673728 L25.8,80.74168411738174 L26.475,82.58936034655176 L27.15,84.5231628012074 L27.825,86.52924768422383 L28.5,88.59140086796926 L29.174999999999997,90.69160371805471 L29.85,92.81074985764782 L30.525,94.92946136101386 L31.2,97.02893024538473 L31.875,99.09170111833785 L32.55,101.10231774163441 L33.225,103.04777874407256 L33.900000000000006,104.91777926849664 L34.575,106.7047472295867 L35.25,108.40370762645307 L35.925,110.01202213605029 L36.6,111.52905405965275 L37.275000000000006,112.95580332998432 L37.95,114.29454638889871 L38.625,115.54850459715114 L39.3,116.72155467400628 L39.975,117.8179866117093 L40.65,118.8423088439613 L41.325,119.79909693305845 L42,120.6928802169485 L42.675,121.52806022881555 L43.349999999999994,122.30885483494247 L44.025,123.03926259827139 L44.7,123.72304263191037 L45.375,124.36370600898063 L46.05,124.9645155554208 L46.724999999999994,125.52849152664857 L47.4,126.0584212410103 L48.075,126.55687121279952 L48.75,127.02620070405875 L49.425,127.46857590995472 L50.1,127.88598422066347 L50.775,128.2802481761231 L51.45,128.65303885993936 L52.125,129.00588857465894 L52.800000000000004,129.3402027103536 L53.474999999999994,129.6572707682363 L54.15,129.9582765357906 L54.824999999999996,130.24430743347347 L55.5,130.5163630683932 L56.175,130.77536303971993 L56.85,131.02215404564427 L57.525,131.25751634372858 L58.2,131.4821696164386 L58.875,131.6967782921854 L59.550000000000004,131.90195636985985 L60.225,132.0982717919597 L60.900000000000006,132.28625040825543 L61.574999999999996,132.46637956869245 L62.25,132.63911138100661 L62.925,132.80486566542007 L63.6,132.96403263583275 L64.275,133.1169753341638 L64.95,133.2640318419386 L65.625,133.40551729086476 L66.3,133.54172569199213 L66.975,133.67293160109665 L67.65,133.7993916361584 L68.325,133.92134586120434 L69,134.03901904934494 L69.67500000000001,134.15262183653715 L70.35,134.26235177644196 L71.025,134.36839430569825 L71.69999999999999,134.47092362799845 L72.375,134.57010352450973 L73.05,134.6660880974332 L73.725,134.75902245281733 L74.4,134.8490433281384 L75.075,134.93627966961915 L75.75,135.02085316377077 L76.42500000000001,135.1028787272088 L77.1,135.18246495840302 L77.775,135.25971455467052 L78.44999999999999,135.33472469740798 L79.125,135.40758740827494 L79.8,135.47838987878762 L80.475,135.54721477555333 L81.15,135.61414052317025 L81.825,135.67924156663227 L82.5,135.74258861491208 L83.175,135.80424886724404 L83.85,135.8642862234942 L84.525,135.92276147988053 L85.2,135.97973251119652 L85.875,136.03525444059028 L86.55,136.08937979786137 L87.22500000000001,136.1421586671538 L87.9,136.1936388248507 L88.575,136.2438658684066 L89.25,136.29288333679386 L89.92500000000001,136.3407328231814 L90.60000000000001,136.38745408041552 L91.27499999999999,136.43308511982434 L91.94999999999999,136.47766230382626 L92.625,136.5212204327844 L93.3,136.563792826513 L93.975,136.6054114008113 L94.64999999999999,136.64610673936915 L95.325,136.68590816136424 L96,136.72484378504373 L96.675,136.76294058756326 L97.35,136.80022446133353 L98.025,136.83672026710738 L98.7,136.87245188402233 L99.375,136.9074422567976 L100.05,136.94171344027066 L100.725,136.97528664144392 L101.4,137.00818225920125 L102.075,137.04041992184113 L102.75,137.07201852256398 L103.425,137.1029962530411 L104.10000000000001,137.13337063518352 L104.775,137.16315855122133 L105.45,137.19237627219613 L106.125,137.2210394849626 L106.80000000000001,137.249163317788 L107.47500000000001,137.27676236463333 L108.14999999999999,137.30385070819372 L108.82499999999999,137.3304419417706 L109.5,137.35654919004335 L110.175,137.3821851288043 L110.85,137.40736200371575 L111.52499999999999,137.43209164814485 L112.2,137.45638550012856 L112.875,137.48025461851657 L113.55,137.50370969833864 L114.225,137.52676108543852 L114.9,137.549418790415 L115.575,137.57169250190714 L116.25,137.59359159925984 L116.925,137.61512516460226 L117.6,137.63630199437054 L118.275,137.65713061030436 L118.95,137.67761926994436 L119.625,137.6977759766572 L120.3,137.717608489212 L120.97500000000001,137.73712433093144 L121.65,137.75633079843936 L122.325,137.77523497002497 L123,137.79384371364335 L123.67500000000001,137.81216369457002 L124.35000000000001,137.83020138272713 L125.02499999999999,137.84796305969704 L125.69999999999999,137.86545482543912 L126.375,137.88268260472364 L127.05,137.89965215329704 L127.725,137.91636906379088 L128.39999999999998,137.93283877138714 L129.075,137.94906655925135 L129.75,137.9650575637442 L130.425,137.98081677942253 L131.1,137.99634906383875 L131.775,138.0116591421491 L132.45,138.02675161153826 L133.125,138.04163094546968 L133.8,138.0563014977692 L134.475,138.07076750654932 L135.15,138.08503309798155 L135.825,138.09910228992345 L136.5,138.11297899540682 L137.175,138.12666702599316 L137.85000000000002,138.1401700950023 L138.525,138.1534918206196 L139.2,138.16663572888692 L139.875,138.17960525658268 L140.55,138.1924037539953 L141.22500000000002,138.20503448759496 L141.89999999999998,138.2175006426077 L142.575,138.22980532549613 L143.25,138.24195156635056 L143.92499999999998,138.25394232119433 L144.6,138.26578047420685 L145.275,138.2774688398678 L145.95,138.28901016502553 L146.625,138.30040713089306 L147.3,138.31166235497426 L147.975,138.32277839292314 L148.65,138.33375774033928 L149.325,138.3446028345012 L150,138.3553160560407",
+          "fill": "none",
+          "stroke": "gold",
+          "width": 3
+        }
+      ]
+    }
+  }
+}
