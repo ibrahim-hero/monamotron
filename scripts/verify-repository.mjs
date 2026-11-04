@@ -106,7 +106,7 @@ for (const path of allFiles.filter((path) => extname(path).toLowerCase() === '.m
   }
 }
 
-for (const path of allFiles.filter((path) => ['.md', '.mjs', '.json', '.yml', '.yaml', '.html', '.css'].includes(extname(path).toLowerCase()))) {
+for (const path of allFiles.filter((path) => ['.md', '.mjs', '.json', '.yml', '.yaml', '.html', '.css'].includes(extname(path).toLowerCase()) || /(^|[\\/])LICENSE$/u.test(path))) {
   const text = await readFile(path, 'utf8');
   if (/G:\\opencode projects|C:\\Users\\/iu.test(text)) failures.push(`Machine-specific absolute path in ${path.slice(root.length + 1)}.`);
   if (staleBranding.some((name) => text.includes(name))) failures.push(`Stale pre-Monamotron branding in ${path.slice(root.length + 1)}.`);
