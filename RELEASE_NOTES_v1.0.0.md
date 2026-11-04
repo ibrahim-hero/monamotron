@@ -1,33 +1,52 @@
-# Monamotron v1.0.0
+# Monamotron v1.0.0 — Code-drawn visual lessons for AI agents
 
 **Prompt in. Visual story out.**
 
-The first public release packages Monamotron as a portable AI-agent skill for creating designed, code-drawn teaching experiences instead of generic text or box diagrams.
+Monamotron is a portable AI skill that turns any topic into an illustrated, animated lesson — original code-drawn art, handwritten explanations, meaningful arrows, and a video you can actually export. Works with OpenCode, Claude Code, and skill-aware agents.
 
-## Highlights
+**Try it first**
 
-- Original SVG/Canvas illustration guidance and editable scene source.
-- Progressive drawing, human-paced typing, labeled arrows, captions, and responsive playback.
-- Eight art directions, including chalkboard, blueprint, editorial, and Excalidraw-inspired studio sketch.
-- Embedded Excalifont, Virgil, and Nunito for consistent offline output.
-- PNG, SVG, JSON, real WebM, and optional MP4 export workflows.
-- A complete neural-network example with a generated ~73-second video.
-- A reproducible toy classifier whose displayed gradients and learning curves are tested rather than invented.
-- Automated source and browser checks, including phone layouts and reduced motion.
-- A complete GitHub upload/launch playbook, account-URL helper, branded social preview, and copy-ready announcement posts.
+- [Watch the 73-second demo](https://ibrahim-hero.github.io/monamotron/video.html) — chapters, transcript, MP4/WebM downloads
+- [Play the interactive lesson](https://ibrahim-hero.github.io/monamotron/) — pause, seek, change style, export
+- [Animated preview in the README](https://github.com/ibrahim-hero/monamotron#see-it-in-action)
 
-## Release Assets
+## What's in v1.0.0
 
-Attach these files to the GitHub release:
+- Portable `monamotron` skill: model-independent instructions, design system, scene format, and quality gates
+- Eight visual directions (chalkboard, blueprint, editorial, studio sketch, and more) with five font choices
+- Deterministic SVG renderer: stroke-by-stroke drawing, human-paced typing, labeled arrows, captions
+- Standalone HTML builds with embedded fonts and media — no server, no CDN, works offline
+- Exports: PNG, SVG, scene JSON, real WebM, optional FFmpeg MP4
+- Featured neural-network lesson backed by a reproducible **35 → 6 → 1** toy classifier — displayed gradients and learning curves come from tested code, not invented numbers
+- New: [architecture guide](https://github.com/ibrahim-hero/monamotron/blob/main/docs/ARCHITECTURE.md), [video watch page](https://ibrahim-hero.github.io/monamotron/video.html), full-speed MP4, and animated README preview
+- CI with source tests, finite-difference gradient checks, builds, and rendered browser checks (desktop + mobile)
 
-1. `monamotron-v1.0.0.zip` — complete repository and installable skill.
-2. `docs/media/neural-network-demo.webm` — generated example video.
-3. `docs/media/neural-network-preview.png` — full-board preview.
+## Install
+
+1. Download `monamotron-v1.0.0.zip` from the release assets and extract it.
+2. Copy `skill/monamotron/` into `.opencode/skills/` or `.claude/skills/`.
+3. Restart your host and paste a prompt:
+
+   ```text
+   Load monamotron and explain how neural networks learn.
+   Use a chalkboard design, original illustrations, and export a video.
+   ```
+
+Full instructions: https://github.com/ibrahim-hero/monamotron/blob/main/docs/INSTALLATION.md
 
 ## Requirements
 
-- Node.js 20+ for builds and checks.
-- A modern Chromium browser for interactive playback and video export.
-- FFmpeg only when MP4 output is requested.
+- **Making lessons:** a tool-enabled AI host, Node.js 20+, Edge/Chrome/Chromium
+- **Watching:** any modern browser
+- **MP4 conversion (optional):** FFmpeg
 
-See `docs/INSTALLATION.md` for supported skill locations and `docs/GITHUB_PUBLISHING.md` for exact publishing steps.
+## Downloads
+
+| File | What it is |
+| --- | --- |
+| `monamotron-v1.0.0.zip` | Complete repository + installable skill |
+| `neural-network-demo.mp4` | Full demo, 1600 × 1120, ~72 s, H.264 |
+| `neural-network-demo.webm` | Original code-rendered recording |
+| `neural-network-preview.png` | Full finished board |
+
+MIT licensed · Fonts under SIL OFL 1.1 · https://github.com/ibrahim-hero/monamotron
